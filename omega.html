@@ -1,0 +1,232 @@
+<title>Client Onboarding Roadmap</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap">
+<style>
+:root{--void:#0C0C0C;--obsidian:#141414;--warm:#1E1C1A;--line:#2A2724;--grid:#181614;
+ --ivory:#F2EDE8;--stone:#A9A29A;--smoke:#8C8680;--gold:#C9A96E;--champagne:#D4C5B0;
+ --sans:'Inter',system-ui,-apple-system,sans-serif;--mono:'DM Mono',ui-monospace,Menlo,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--void);color:var(--ivory);font-family:var(--sans);
+ font-weight:500;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;
+ min-height:100vh;display:flex;flex-direction:column}
+.wrap{max-width:1280px;margin:0 auto;padding:0 30px;width:100%}
+/* ---- chrome ---- */
+header{border-bottom:1px solid var(--line);background:var(--warm);position:sticky;top:0;z-index:30;overflow-x:hidden}
+header .wrap{display:flex;align-items:center;gap:26px;height:60px;overflow:hidden}
+header .wrap::-webkit-scrollbar{display:none}
+.brand{font-family:var(--mono);font-size:13px;letter-spacing:.24em;text-transform:uppercase;
+ color:var(--gold);white-space:nowrap}
+.brand b{font-weight:500;color:var(--ivory)}
+nav{display:flex;gap:1px;margin-left:auto;min-width:0;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.13em;background:transparent;
+ color:var(--stone);border:0;border-bottom:2px solid transparent;padding:11px 12px;cursor:pointer;
+ white-space:nowrap;transition:color .15s,border-color .15s}
+nav button:hover{color:var(--champagne)}
+nav button[aria-current="true"]{color:var(--gold);border-bottom-color:var(--gold)}
+nav button i{font-style:normal;color:var(--smoke);margin-right:6px}
+nav button[aria-current="true"] i{color:var(--gold)}
+main{flex:1;position:relative;
+ background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+ background-size:74px 74px;background-position:center top}
+main::after{content:"";position:absolute;inset:0;pointer-events:none;
+ background:radial-gradient(ellipse at 50% 0%,transparent 35%,var(--void) 82%)}
+main .wrap{position:relative;z-index:1;padding-top:44px;padding-bottom:40px}
+.slide{display:none;flex-direction:column;gap:26px}
+.slide.on{display:flex}
+/* ---- heads ---- */
+.shead{display:flex;justify-content:space-between;align-items:flex-start;gap:26px;flex-wrap:wrap}
+.ph{font-family:var(--mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--champagne)}
+h1{font-weight:800;letter-spacing:-.042em;font-size:clamp(29px,4.4vw,46px);line-height:1.03;margin:11px 0 0;max-width:21ch}
+.sub{color:var(--stone);margin:13px 0 0;max-width:68ch;font-size:18px}
+.badge{border:1px solid var(--line);background:var(--obsidian);border-radius:10px;padding:12px 19px;flex:none;
+ display:flex;flex-direction:column;gap:3px}
+.badge .k{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--smoke)}
+.badge .v{font-weight:700;font-size:22px;color:var(--gold);letter-spacing:-.02em;white-space:nowrap}
+h3{font-weight:700;font-size:18px;letter-spacing:-.022em;margin:0;color:var(--ivory)}
+p{margin:0}
+b{font-weight:800;color:var(--ivory)}
+.blank{font-family:var(--mono);font-size:.93em;color:var(--gold)}
+.lbl{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--smoke)}
+/* ---- cards ---- */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+@media(max-width:860px){.cols{grid-template-columns:1fr}}
+.card{background:var(--obsidian);border:1px solid var(--line);border-radius:12px;padding:22px;
+ display:flex;flex-direction:column;gap:13px}
+.card.acc{border-top:2px solid var(--gold)}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+ border:1px solid var(--line);border-radius:4px;padding:4px 10px;align-self:flex-start;color:var(--champagne)}
+.tag.g{color:var(--gold)}
+ul.t{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+ul.t li{color:var(--stone);font-size:16.5px;line-height:1.5;padding-left:22px;position:relative}
+ul.t li::before{content:"\2197";position:absolute;left:0;top:1px;color:var(--smoke);font-size:11px}
+ul.t li b{color:var(--ivory);font-weight:800}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:13px}
+.g{background:var(--obsidian);border:1px solid var(--line);border-radius:11px;padding:19px;
+ display:flex;flex-direction:column;gap:8px}
+.g .n{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--champagne)}
+.g p{color:var(--stone);font-size:16px;line-height:1.5}
+.g.num .n{color:var(--gold);font-size:22px;letter-spacing:0;font-weight:500}
+/* ---- chain diagram ---- */
+.chain{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;
+ border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--obsidian)}
+.chain .c{flex:1;min-width:132px;padding:17px 15px;display:flex;flex-direction:column;gap:6px;
+ border-right:1px solid var(--line);position:relative}
+.chain .c:last-child{border-right:0}
+.chain .c i{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--gold);letter-spacing:.14em}
+.chain .c span{font-size:15px;font-weight:700;color:var(--ivory);line-height:1.3}
+.chain .c em{font-style:normal;font-size:13.5px;color:var(--smoke);line-height:1.4}
+.chain .c.hot{background:var(--warm)}
+.chain .c.hot span{color:var(--gold)}
+/* ---- proportional timeline ---- */
+.tlbar{display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;height:46px}
+.tlbar div{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;
+ color:var(--void);font-weight:500;border-right:1px solid rgba(12,12,12,.35);overflow:hidden;white-space:nowrap}
+.tlbar div:last-child{border-right:0}
+.tlkey{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:11px}
+.tlkey span{font-size:14.5px;color:var(--stone);display:flex;gap:8px;align-items:center}
+.tlkey i{width:11px;height:11px;border-radius:2px;flex:none;display:block}
+/* ---- funnel (bottleneck) ---- */
+.fun{display:flex;flex-direction:column;gap:9px}
+.fun .r{display:flex;align-items:center;gap:15px}
+.fun .bar{height:42px;border-radius:7px;background:var(--warm);border:1px solid var(--line);
+ display:flex;align-items:center;padding:0 16px;font-weight:700;color:var(--ivory);font-size:15.5px}
+.fun .bar.gold{background:linear-gradient(90deg,rgba(201,169,110,.22),rgba(201,169,110,.05));border-color:var(--gold)}
+.fun .meta{font-family:var(--mono);font-size:13px;color:var(--champagne);white-space:nowrap;flex:none}
+/* ---- loop ---- */
+.loop{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.loop span{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+ color:var(--stone);border:1px solid var(--line);border-radius:99px;padding:9px 15px;background:var(--obsidian)}
+.loop span.hot{color:var(--gold);border-color:var(--gold)}
+.loop b{color:var(--smoke);font-weight:400}
+/* ---- table ---- */
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:16px;min-width:580px}
+th{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+ color:var(--smoke);text-align:left;padding:0 14px 11px 0;border-bottom:1px solid var(--line)}
+td{padding:14px 14px 14px 0;border-bottom:1px solid var(--line);color:var(--stone);vertical-align:top;font-weight:500}
+td:first-child{color:var(--ivory);font-weight:700}
+td.m{font-family:var(--mono);font-size:13.5px;color:var(--champagne);white-space:nowrap}
+/* ---- assets ---- */
+.asset{background:var(--obsidian);border:1px solid var(--line);border-radius:11px;overflow:hidden;margin-bottom:11px}
+.ah{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:14px 18px;background:var(--warm);
+ border-bottom:1px solid var(--line);cursor:pointer}
+.ah .nm{font-weight:700;font-size:16.5px;color:var(--ivory)}
+.ah .when{font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;
+ color:var(--champagne);border:1px solid var(--line);border-radius:99px;padding:4px 11px}
+.ah .sp{flex:1}
+.cp{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--stone);
+ background:transparent;border:1px solid var(--line);border-radius:99px;padding:7px 14px;cursor:pointer}
+.cp:hover{border-color:var(--champagne);color:var(--champagne)}
+.ab{display:none;padding:18px;flex-direction:column;gap:11px}
+.asset.open .ab{display:flex}
+.subj{font-family:var(--mono);font-size:14px;color:var(--champagne)}
+.bodyt{white-space:pre-wrap;font-size:16px;line-height:1.72;color:var(--stone);
+ border-left:1px solid var(--line);padding-left:16px}
+/* ---- footer nav ---- */
+footer{border-top:1px solid var(--line);background:var(--warm)}
+footer .wrap{display:flex;align-items:center;gap:18px;padding-top:15px;padding-bottom:15px}
+.pg{flex:1;display:flex;align-items:center;gap:13px;justify-content:center}
+.pg .c{font-family:var(--mono);font-size:12.5px;color:var(--smoke);letter-spacing:.12em}
+.rail{width:210px;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
+.rail i{display:block;height:100%;background:var(--gold);width:8%;transition:width .3s}
+.nb{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;background:transparent;
+ color:var(--stone);border:1px solid var(--line);border-radius:99px;padding:10px 18px;cursor:pointer}
+.nb:hover:not(:disabled){border-color:var(--champagne);color:var(--champagne)}
+.nb:disabled{opacity:.3;cursor:default}
+@media(max-width:560px){
+ .wrap{padding:0 18px}
+ footer .wrap{gap:9px}
+ .nb{padding:9px 11px;font-size:10px;letter-spacing:.09em}
+ .pg{gap:7px}
+ .rail{width:52px}
+ .pg .c{font-size:11px;letter-spacing:.08em}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+main .wrap{padding-top:42px;padding-bottom:30px}
+.slide{display:none;flex-direction:column;gap:24px}.slide.on{display:flex}
+/* hub and spoke */
+.hub{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+@media(max-width:900px){.hub{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.hub{grid-template-columns:1fr}}
+.hub .n{background:var(--obsidian);border:1px solid var(--line);border-radius:11px;padding:17px 17px 17px 34px;
+ display:flex;flex-direction:column;gap:6px;position:relative}
+.hub .n b{font-size:15.5px;color:var(--ivory);font-weight:700}
+.hub .n span{font-size:14px;color:var(--smoke);line-height:1.42}
+.hub .n::before{content:"";position:absolute;width:7px;height:7px;border-radius:50%;
+ background:var(--gold);left:15px;top:22px}
+.hub .n::after{content:"";position:absolute;left:18px;top:29px;bottom:16px;width:1px;background:var(--line)}
+.core{margin-top:13px;background:linear-gradient(160deg,rgba(201,169,110,.15),rgba(201,169,110,.03));
+ border:1px solid var(--gold);border-radius:11px;padding:20px;display:flex;align-items:center;
+ justify-content:center;gap:14px;flex-wrap:wrap;text-align:center}
+.core b{font-size:20px;color:var(--gold);letter-spacing:-.02em;font-weight:800}
+.core span{color:var(--champagne);font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+/* ring */
+.ring{position:relative;width:100%;max-width:560px;aspect-ratio:1;margin:4px auto 0}
+.ring svg{position:absolute;inset:0;width:100%;height:100%}
+.ring .node{position:absolute;transform:translate(-50%,-50%);background:var(--obsidian);
+ border:1px solid var(--line);border-radius:99px;padding:8px 14px;font-family:var(--mono);
+ font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--stone);white-space:nowrap}
+.ring .node.hot{color:var(--gold);border-color:var(--gold);background:var(--warm)}
+.ring .mid{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center}
+.ring .mid b{display:block;font-size:26px;font-weight:800;color:var(--gold);letter-spacing:-.03em;line-height:1.1}
+.ring .mid span{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--smoke)}
+/* roadmap rail */
+.road{display:flex;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--obsidian)}
+.road .seg{flex:1;padding:16px 15px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:5px;min-width:120px}
+.road .seg:last-child{border-right:0}
+.road .seg i{font-style:normal;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--gold)}
+.road .seg b{font-size:15px;color:var(--ivory);font-weight:700}
+.road .seg em{font-style:normal;font-size:13px;color:var(--smoke)}
+.road .seg.now{background:var(--warm)}
+@media(max-width:760px){
+ .road{flex-wrap:wrap}
+ .road .seg{flex:1 1 50%;min-width:0;border-bottom:1px solid var(--line)}
+ .road .seg:nth-child(odd){border-right:1px solid var(--line)}
+ .road .seg:nth-child(even){border-right:0}
+ .road .seg:last-child{flex-basis:100%;border-bottom:0;border-right:0}
+}
+/* sub flow */
+.subflow{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin-top:2px}
+.subflow span{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+ color:var(--champagne);border:1px solid var(--line);border-radius:99px;padding:9px 16px;background:var(--obsidian)}
+.subflow i{font-style:normal;color:var(--smoke);padding:0 11px;font-size:13px}
+.dod{background:var(--warm);border:1px solid var(--line);border-radius:11px;padding:15px 20px;
+ display:flex;flex-wrap:wrap;align-items:center;gap:9px 22px}
+.dod .k{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--smoke)}
+.dod .i{font-size:15.5px;color:var(--stone);display:flex;gap:8px;align-items:center;font-weight:500}
+.dod .i::before{content:"\2713";color:var(--gold);font-size:12px}
+.note{margin:0;text-align:center;color:var(--champagne);font-size:16.5px;font-weight:600}
+.fine{text-align:center;color:var(--smoke);font-size:13px;padding:0 0 20px;margin:0;line-height:1.6}
+</style>
+<header><div class="wrap"><span class="brand">Zayd <b>Operates</b></span><nav><button data-g="1" aria-current="true"><i>01</i>FOUNDATION</button><button data-g="2" aria-current="false"><i>02</i>STRATEGY</button><button data-g="3" aria-current="false"><i>03</i>BUILD</button><button data-g="4" aria-current="false"><i>04</i>LAUNCH</button><button data-g="5" aria-current="false"><i>05</i>SCALE</button></nav></div></header>
+<main><div class="wrap"><section class="slide on" data-s="1"><div class="shead"><div><div class="ph">Phase 01</div><h1>Foundation &amp; Onboarding</h1><p class="sub">We get everything required to execute from day one.</p></div><div class="badge"><span class="k">Target timeline</span><span class="v">Day 0–1</span></div></div><div class="cols"><div class="card acc"><span class="tag g">ZAYD OPERATES &middot; What we handle</span><ul class="t"><li>Kickoff &amp; launch alignment</li><li>Project workspace setup</li><li>Funnel / offer audit</li><li>Tracking &amp; CRM requirements</li><li>Launch plan confirmation</li><li>Team responsibilities</li><li>Communication channels</li></ul></div><div class="card"><span class="tag">Client &middot; What we need from you</span><ul class="t"><li>Required account access</li><li>Existing funnel &amp; brand assets</li><li>Offer information</li><li>Customer / market information</li><li>Existing creatives &amp; copy</li><li>Calendar / CRM access</li><li>Fast communication &amp; approvals</li></ul></div></div><div class="dod"><span class="k">Definition of done</span><span class="i">Access received</span><span class="i">Assets received</span><span class="i">Strategy aligned</span><span class="i">Timeline confirmed</span><span class="i">Team ready</span></div><p class="note">The faster we receive everything, the faster execution begins.</p></section><section class="slide" data-s="2"><div class="shead"><div><div class="ph">Phase 02</div><h1>Strategy &rarr; Messaging &rarr; Creative</h1><p class="sub">Before we build, we make sure the campaign has the right message.</p></div><div class="badge"><span class="k">Target timeline</span><span class="v">Day 1–3</span></div></div><div class="chain"><div class="c"><i>01</i><span>Research</span></div><div class="c"><i>02</i><span>Offer &amp; Angle</span></div><div class="c"><i>03</i><span>Messaging</span></div><div class="c"><i>04</i><span>Scripts</span></div><div class="c"><i>05</i><span>Creative Production</span></div></div><div class="cols"><div class="card acc"><span class="tag g">ZAYD OPERATES &middot; What we handle</span><ul class="t"><li>Market &amp; offer research</li><li>Funnel strategy &amp; campaign angles</li><li>Messaging &amp; ad concepts</li><li>Webinar / VSL strategy where applicable</li><li>Ad scripts &amp; landing-page copy</li><li>Follow-up messaging</li><li>Creative direction</li></ul></div><div class="card"><span class="tag">Client &middot; One clear action</span><p class="note" style="text-align:left;font-size:18px">Record or provide required assets as quickly as possible.</p><div class="subflow"><span>Script approved</span><i>&rarr;</i><span>Client records</span><i>&rarr;</i><span>Editing begins</span></div><p style="color:var(--smoke);font-size:15px">Editing speed and revision requirements are key variables affecting launch speed.</p></div></div><div class="dod"><span class="k">Definition of done</span><span class="i">Strategy locked</span><span class="i">Messaging approved</span><span class="i">Scripts completed</span><span class="i">Recordings submitted</span><span class="i">Production underway</span></div></section><section class="slide" data-s="3"><div class="shead"><div><div class="ph">Phase 03</div><h1>We Build The Growth Infrastructure</h1><p class="sub">While creative is produced, we build the system behind the campaign.</p></div><div class="badge"><span class="k">Target timeline</span><span class="v">Day 2–5</span></div></div><p class="lbl">Connected system</p><div class="hub"><div class="n"><b>Funnel</b><span>Landing, registration &amp; confirmation pages</span></div><div class="n"><b>CRM</b><span>Pipeline, stages &amp; lead routing</span></div><div class="n"><b>Automation</b><span>Email, SMS, notifications &amp; workflows</span></div><div class="n"><b>Tracking</b><span>Pixels, events, attribution &amp; conversion</span></div><div class="n"><b>Calendar</b><span>Booking, routing &amp; confirmation</span></div><div class="n"><b>Ad Infrastructure</b><span>Campaigns, audiences &amp; deployment</span></div></div><div class="core"><b>Your Campaign</b><span>Everything is connected before traffic is sent</span></div><p class="note">Optional: Webinar / VSL infrastructure</p><div class="dod"><span class="k">Definition of done</span><span class="i">Funnel built</span><span class="i">CRM connected</span><span class="i">Automations active</span><span class="i">Tracking installed</span><span class="i">Calendar connected</span><span class="i">Infrastructure ready</span></div></section><section class="slide" data-s="4"><div class="shead"><div><div class="ph">Phase 04</div><h1>Final Checks. Approval. Go Live.</h1><p class="sub">Nothing launches until the complete customer journey has been tested.</p></div><div class="badge"><span class="k">Target timeline</span><span class="v">Day 5–7</span></div></div><div class="steps" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(146px,1fr));gap:11px"><div class="g"><span class="n" style="color:var(--gold)">01</span><p style="color:var(--ivory);font-weight:700;font-size:15px">Full funnel QA</p><span class="tag" style="font-size:10px">ZAYD OPERATES</span></div><div class="g"><span class="n" style="color:var(--gold)">02</span><p style="color:var(--ivory);font-weight:700;font-size:15px">Form &amp; calendar test</p><span class="tag" style="font-size:10px">ZAYD OPERATES</span></div><div class="g"><span class="n" style="color:var(--gold)">03</span><p style="color:var(--ivory);font-weight:700;font-size:15px">CRM + automation test</p><span class="tag" style="font-size:10px">ZAYD OPERATES</span></div><div class="g"><span class="n" style="color:var(--gold)">04</span><p style="color:var(--ivory);font-weight:700;font-size:15px">Tracking / pixel verification</p><span class="tag" style="font-size:10px">ZAYD OPERATES</span></div><div class="g"><span class="n" style="color:var(--gold)">05</span><p style="color:var(--ivory);font-weight:700;font-size:15px">Creative review</p><span class="tag" style="font-size:10px">Shared</span></div><div class="g"><span class="n" style="color:var(--gold)">06</span><p style="color:var(--ivory);font-weight:700;font-size:15px">Client final approval</p><span class="tag" style="font-size:10px">Client</span></div><div class="g"><span class="n" style="color:var(--gold)">07</span><p style="color:var(--ivory);font-weight:700;font-size:15px">Campaigns activated</p><span class="tag" style="font-size:10px">ZAYD OPERATES</span></div></div><p class="lbl">What we test</p><div class="grid3"><div class="g"><p style="color:var(--ivory);font-weight:700;font-size:15.5px">Ads &rarr; landing page</p></div><div class="g"><p style="color:var(--ivory);font-weight:700;font-size:15.5px">Forms / applications</p></div><div class="g"><p style="color:var(--ivory);font-weight:700;font-size:15.5px">Calendar booking</p></div><div class="g"><p style="color:var(--ivory);font-weight:700;font-size:15.5px">CRM opportunity creation</p></div><div class="g"><p style="color:var(--ivory);font-weight:700;font-size:15.5px">Notifications</p></div><div class="g"><p style="color:var(--ivory);font-weight:700;font-size:15.5px">Email / SMS</p></div><div class="g"><p style="color:var(--ivory);font-weight:700;font-size:15.5px">Tracking events</p></div><div class="g"><p style="color:var(--ivory);font-weight:700;font-size:15.5px">Attribution</p></div><div class="g"><p style="color:var(--ivory);font-weight:700;font-size:15.5px">Mobile responsiveness</p></div><div class="g"><p style="color:var(--ivory);font-weight:700;font-size:15.5px">Confirmation journey</p></div></div><div class="core"><b>Ready for launch</b><span>Go live</span></div><div class="dod"><span class="k">Definition of done</span><span class="i">Full journey tested</span><span class="i">Errors resolved</span><span class="i">Approval received</span><span class="i">Campaigns activated</span><span class="i">Traffic live</span></div></section><section class="slide" data-s="5"><div class="shead"><div><div class="ph">Phase 05</div><h1>Launch Is Where The Real Work Starts.</h1><p class="sub">We use real data to find bottlenecks and continuously improve the system.</p></div><div class="badge"><span class="k">Target timeline</span><span class="v">Day 7+</span></div></div><div class="ring"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="41.5" fill="none" stroke="#221F1C" stroke-width="0.4" stroke-dasharray="1.2 1.6"/><path d="M 50.00 8.50 A 41.5 41.5 0 0 1 82.45 24.13" fill="none" stroke="#2A2724" stroke-width="0.5"/><path d="M 82.45 24.13 A 41.5 41.5 0 0 1 90.46 59.23" fill="none" stroke="#2A2724" stroke-width="0.5"/><path d="M 90.46 59.23 A 41.5 41.5 0 0 1 68.01 87.39" fill="none" stroke="#2A2724" stroke-width="0.5"/><path d="M 68.01 87.39 A 41.5 41.5 0 0 1 31.99 87.39" fill="none" stroke="#2A2724" stroke-width="0.5"/><path d="M 31.99 87.39 A 41.5 41.5 0 0 1 9.54 59.23" fill="none" stroke="#2A2724" stroke-width="0.5"/><path d="M 9.54 59.23 A 41.5 41.5 0 0 1 17.55 24.13" fill="none" stroke="#2A2724" stroke-width="0.5"/><path d="M 17.55 24.13 A 41.5 41.5 0 0 1 50.00 8.50" fill="none" stroke="#2A2724" stroke-width="0.5"/></svg><div class="mid"><b>Repeat</b><span>Optimize &amp; Scale</span></div><div class="node hot" style="left:50.00%;top:8.50%">Launch</div><div class="node" style="left:82.45%;top:24.13%">Collect data</div><div class="node" style="left:90.46%;top:59.23%">Analyze</div><div class="node hot" style="left:68.01%;top:87.39%">Find bottleneck</div><div class="node" style="left:31.99%;top:87.39%">Optimize</div><div class="node" style="left:9.54%;top:59.23%">Scale</div><div class="node" style="left:17.55%;top:24.13%">New test</div></div><div class="card acc"><span class="tag g">ZAYD OPERATES &middot; Our job after launch</span><ul class="t"><li>Monitor performance &amp; report clearly</li><li>Identify the bottleneck</li><li>Launch new creative &amp; test angles</li><li>Improve conversion &amp; lead quality</li><li>Optimize follow-up</li><li>Scale winning campaigns</li><li>Repeat the process</li></ul></div><p class="lbl">The full roadmap</p><div class="road"><div class="seg"><i>Day 0–1</i><b>Foundation</b></div><div class="seg"><i>Day 1–3</i><b>Strategy &amp; Assets</b></div><div class="seg"><i>Day 2–5</i><b>Build</b></div><div class="seg"><i>Day 5–7</i><b>Launch</b></div><div class="seg"><i>Day 7+</i><b>Optimize &amp; Scale</b></div></div><p class="note">From signed client to live campaign, every phase has a clear owner, objective and definition of done.</p></section></div></main>
+<footer><div class="wrap">
+ <button class="nb" id="prev" disabled>&larr; Previous</button>
+ <span class="pg"><span class="c" id="cur">01</span><span class="rail"><i id="bar"></i></span><span class="c">05</span></span>
+ <button class="nb" id="next">Next &rarr;</button>
+</div>
+<p class="fine">Timeline assumes timely delivery of required assets, access and approvals. Editing requirements, revisions and client response times may affect the final launch date.</p>
+</footer>
+<script>
+var slides=document.querySelectorAll('.slide'),navs=document.querySelectorAll('nav button'),
+ prev=document.getElementById('prev'),next=document.getElementById('next'),
+ cur=document.getElementById('cur'),bar=document.getElementById('bar'),n=slides.length,at=1;
+function go(i){at=Math.min(Math.max(i,1),n);
+ slides.forEach(function(s){s.classList.toggle('on',+s.dataset.s===at);});
+ navs.forEach(function(b){b.setAttribute('aria-current',+b.dataset.g===at?'true':'false');});
+ cur.textContent=String(at).padStart(2,'0');bar.style.width=(at/n*100)+'%';
+ prev.disabled=at===1;next.disabled=at===n;
+ try{history.replaceState(null,'','?slide='+at);}catch(e){}
+ window.scrollTo({top:0,behavior:'smooth'});}
+navs.forEach(function(b){b.addEventListener('click',function(){go(+b.dataset.g);});});
+prev.addEventListener('click',function(){go(at-1);});
+next.addEventListener('click',function(){go(at+1);});
+document.addEventListener('keydown',function(e){
+ if(e.target.tagName==='BUTTON')return;
+ if(e.key==='ArrowRight')go(at+1);if(e.key==='ArrowLeft')go(at-1);});
+var m=(location.search.match(/slide=(\d+)/)||[])[1];go(m?+m:1);
+</script>
