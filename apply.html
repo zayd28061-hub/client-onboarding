@@ -4,110 +4,98 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Three Founders. Live.</title>
-<meta name="description" content="Three founders, one to one with Michael Pepper, live and unedited. Free. Apply before applications close.">
+<meta name="description" content="Three founders, one to one with Michael Pepper. Live and unedited. Free.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Jost:wght@300;400;500&display=swap">
 <style>
 :root{
- --bg:#F7F6F4; --panel:#FFFFFF; --panel2:#FCFBF9;
- --ink:#101720; --mid:#48515C; --mute:#8A8F97;
- --line:#E3E0DA; --line2:#CDC8C0;
- --gold:#8A6A38; --goldbg:#FAF3E6; --goldline:#E6D6B2;
- --green:#2C6B4C;
- --sans:'Inter',system-ui,-apple-system,sans-serif;
- --mono:'DM Mono',ui-monospace,Menlo,monospace;
+ --cream:#F5F2EC; --ink:#1C1712; --dark:#120E0A;
+ --mute:#7A7268; --faint:#A39A8C; --bronze:#A9895F;
+ --line:#DCD6CA; --panel:#FBF9F5;
+ --serif:'Cormorant Garamond',Georgia,serif;
+ --sans:'Jost',system-ui,-apple-system,sans-serif;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;
- font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
-.wrap{max-width:720px;margin:0 auto;padding:0 24px}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--sans);
+ font-weight:300;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:640px;margin:0 auto;padding:0 26px}
 
-/* urgency bar */
-.bar{background:var(--ink);color:#fff;text-align:center;padding:11px 18px;
- font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:400}
-.bar b{color:#E6C98A;font-weight:500}
+.bar{background:var(--dark);color:var(--cream);text-align:center;padding:12px 18px;
+ font-family:var(--sans);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:400}
+.bar b{color:var(--bronze);font-weight:500}
 
-/* hero */
-header{padding:52px 0 38px;text-align:center}
-.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:400}
-h1{font-weight:700;letter-spacing:-.04em;font-size:clamp(34px,6.4vw,54px);line-height:1.03;margin:16px 0 0}
-h1 .u{background:linear-gradient(transparent 68%,#EBD9AE 68%)}
-.lede{font-size:19px;color:var(--mid);margin:20px auto 0;max-width:34em}
-.meta{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-top:26px}
-.pill{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
- border:1px solid var(--line2);border-radius:99px;padding:7px 14px;color:var(--mid);background:var(--panel)}
-.pill.g{border-color:var(--goldline);background:var(--goldbg);color:var(--gold)}
+header{padding:58px 0 46px;text-align:center}
+.face{width:104px;height:104px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 22px;
+ border:1px solid var(--line)}
+.kicker{font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--bronze);font-weight:400}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(42px,8vw,72px);line-height:1.04;
+ letter-spacing:-.01em;margin:18px 0 0}
+h1 em{font-style:italic;color:var(--bronze)}
+.lede{font-size:18.5px;color:var(--mute);margin:20px auto 0;max-width:30em;line-height:1.6}
+.facts{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-top:30px;
+ padding-top:24px;border-top:1px solid var(--line)}
+.facts div{text-align:center}
+.facts b{display:block;font-family:var(--serif);font-size:30px;font-weight:400;line-height:1}
+.facts span{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-top:7px}
 
-.cta{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;font-weight:600;
- font-size:16.5px;padding:16px 34px;border-radius:10px;margin-top:30px;letter-spacing:-.01em;
- transition:transform .12s,box-shadow .12s}
-.cta:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(16,23,32,.16)}
-.cta .s{display:block;font-weight:300;font-size:12.5px;opacity:.7;margin-top:3px}
+.cta{display:inline-block;background:var(--dark);color:var(--cream);text-decoration:none;
+ font-family:var(--sans);font-weight:400;font-size:14px;letter-spacing:.14em;text-transform:uppercase;
+ padding:17px 40px;margin-top:32px;transition:opacity .15s}
+.cta:hover{opacity:.85}
 
-hr{border:0;border-top:1px solid var(--line);margin:0}
-section{padding:44px 0}
-h2{font-weight:700;letter-spacing:-.035em;font-size:clamp(25px,4vw,32px);margin:0 0 20px;line-height:1.12}
-p{margin:0 0 17px}
-.lbl{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
- color:var(--mute);font-weight:400;margin:0 0 14px}
+section{padding:46px 0;border-top:1px solid var(--line)}
+h2{font-family:var(--serif);font-weight:300;font-size:clamp(30px,5.4vw,42px);line-height:1.12;margin:0 0 22px}
+p{margin:0 0 18px;color:var(--mute)}
+p.ink{color:var(--ink)}
+strong{font-weight:500;color:var(--ink)}
 
-/* timeline */
-.tl{display:flex;flex-direction:column;gap:2px;background:var(--line);border:1px solid var(--line);
- border-radius:13px;overflow:hidden}
-.tl .r{display:flex;gap:16px;background:var(--panel);padding:16px 19px;align-items:baseline}
-.tl .t{font-family:var(--mono);font-size:12px;color:var(--gold);flex:none;width:58px;letter-spacing:.06em}
-.tl .d{font-size:16px;color:var(--mid);line-height:1.5}
-.tl .d b{color:var(--ink);font-weight:600;display:block;margin-bottom:2px;font-size:16.5px}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{counter-increment:s;position:relative;padding:0 0 20px 46px;margin:0}
+.steps li:last-child{padding-bottom:0}
+.steps li::before{content:counter(s,decimal-leading-zero);position:absolute;left:0;top:1px;
+ font-family:var(--sans);font-size:11.5px;letter-spacing:.14em;color:var(--bronze);font-weight:400}
+.steps b{display:block;font-family:var(--serif);font-size:22px;font-weight:400;color:var(--ink);margin-bottom:3px}
+.steps span{display:block;color:var(--mute);font-size:16px;line-height:1.55}
 
-/* for/not */
-.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:640px){.two{grid-template-columns:1fr}}
-.box{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:20px 21px}
-.box.y{border-top:3px solid var(--green)}
-.box.n{border-top:3px solid var(--line2)}
-.box h3{margin:0 0 13px;font-size:15px;font-weight:700;letter-spacing:-.01em}
-.box ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
-.box li{font-size:15.5px;color:var(--mid);padding-left:20px;position:relative;line-height:1.48}
-.box.y li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:600}
-.box.n li::before{content:"×";position:absolute;left:0;color:var(--mute);font-weight:600}
-
-.quote{background:var(--panel2);border-left:3px solid var(--gold);border-radius:0 11px 11px 0;
- padding:19px 24px;font-size:18px;color:var(--ink);line-height:1.55;margin:0}
-.quote em{font-style:normal;display:block;margin-top:10px;font-family:var(--mono);font-size:12px;
- letter-spacing:.1em;color:var(--mute);text-transform:uppercase}
+.who{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+@media(max-width:600px){.who{grid-template-columns:1fr;gap:26px}}
+.who h3{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+ color:var(--faint);font-weight:400;margin:0 0 13px}
+.who ul{margin:0;padding:0;list-style:none}
+.who li{font-size:16px;color:var(--mute);padding:0 0 9px 18px;position:relative;line-height:1.5}
+.who li::before{content:"";position:absolute;left:0;top:10px;width:6px;height:1px;background:var(--bronze)}
+.who .no li::before{background:var(--line)}
 
 /* form */
-#apply{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:32px 30px;margin:0 0 10px}
-@media(max-width:560px){#apply{padding:24px 20px}}
-.fg{margin-bottom:21px}
-label{display:block;font-size:15.5px;font-weight:600;color:var(--ink);margin-bottom:7px;letter-spacing:-.01em}
-label .req{color:var(--gold)}
-label .hint{display:block;font-weight:300;font-size:14px;color:var(--mute);margin-top:3px}
-input[type=text],input[type=email],textarea,select{width:100%;font-family:var(--sans);font-size:16px;
- font-weight:300;color:var(--ink);background:var(--bg);border:1px solid var(--line2);border-radius:9px;
- padding:12px 14px;transition:border-color .14s,box-shadow .14s}
-input:focus,textarea:focus,select:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 3px var(--goldbg)}
-textarea{min-height:92px;resize:vertical;line-height:1.5}
-.radios{display:flex;flex-direction:column;gap:9px}
-.radios label,.checks label{display:flex;align-items:flex-start;gap:10px;font-weight:300;font-size:15.5px;
- color:var(--mid);cursor:pointer;margin:0;padding:11px 14px;background:var(--bg);border:1px solid var(--line);
- border-radius:9px;transition:border-color .14s,background .14s}
-.radios label:hover,.checks label:hover{border-color:var(--line2);background:var(--panel2)}
-input[type=radio],input[type=checkbox]{margin:3px 0 0;accent-color:var(--gold);flex:none;width:17px;height:17px}
-.checks{display:flex;flex-direction:column;gap:9px}
-.consent{background:var(--goldbg);border:1px solid var(--goldline);border-radius:11px;padding:16px 18px;margin-bottom:21px}
-.consent label{font-size:15px;color:var(--ink);background:transparent;border:0;padding:0;align-items:flex-start}
-.consent p{font-size:14.5px;color:var(--mid);margin:0 0 11px;line-height:1.5}
-button[type=submit]{width:100%;background:var(--ink);color:#fff;border:0;border-radius:10px;
- padding:17px;font-family:var(--sans);font-size:17px;font-weight:600;letter-spacing:-.01em;cursor:pointer;
- transition:transform .12s,box-shadow .12s}
-button[type=submit]:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(16,23,32,.16)}
-.fine{font-size:13.5px;color:var(--mute);text-align:center;margin:14px 0 0;line-height:1.5}
+form{margin:0}
+.fg{margin-bottom:24px}
+label{display:block;font-family:var(--sans);font-size:15px;font-weight:400;color:var(--ink);
+ margin-bottom:8px;letter-spacing:0}
+label .hint{display:block;font-weight:300;font-size:14px;color:var(--faint);margin-top:2px}
+input[type=text],input[type=email],textarea{width:100%;font-family:var(--sans);font-size:16px;font-weight:300;
+ color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:0;padding:13px 15px;
+ transition:border-color .15s}
+input:focus,textarea:focus{outline:0;border-color:var(--bronze)}
+textarea{min-height:96px;resize:vertical;line-height:1.55}
+.opts{display:flex;flex-direction:column;gap:0;border:1px solid var(--line);background:var(--panel)}
+.opts label{display:flex;align-items:center;gap:12px;font-weight:300;font-size:16px;color:var(--mute);
+ cursor:pointer;margin:0;padding:13px 15px;border-bottom:1px solid var(--line)}
+.opts label:last-child{border-bottom:0}
+.opts label:hover{background:var(--cream)}
+input[type=radio],input[type=checkbox]{margin:0;accent-color:var(--bronze);flex:none;width:16px;height:16px}
+.consent{border:1px solid var(--bronze);background:var(--panel);padding:18px;margin-bottom:24px}
+.consent p{font-size:15px;color:var(--mute);margin:0 0 13px;line-height:1.55}
+.consent label{display:flex;align-items:center;gap:12px;font-size:15.5px;color:var(--ink);margin:0}
+button{width:100%;background:var(--dark);color:var(--cream);border:0;padding:19px;
+ font-family:var(--sans);font-size:14px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;
+ cursor:pointer;transition:opacity .15s}
+button:hover{opacity:.85}
+.fine{font-size:14px;color:var(--faint);text-align:center;margin:16px 0 0}
 
-footer{padding:34px 0 60px;text-align:center;border-top:1px solid var(--line);margin-top:20px}
-footer p{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--mute);margin:0}
+footer{padding:36px 0 64px;text-align:center;border-top:1px solid var(--line)}
+footer p{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin:0}
 </style>
 </head>
 <body>
@@ -117,130 +105,103 @@ footer p{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transf
 <div class="wrap">
 
 <header>
-  <div class="eyebrow">Free · Three founders only</div>
-  <h1>I'll show you what<br>you're <span class="u">already sitting on</span>.</h1>
+  <img class="face" src="assets/mike.jpg" alt="Michael Pepper">
+  <div class="kicker">Free · Three founders</div>
+  <h1>I'll show you what you're <em>already</em> sitting on.</h1>
   <p class="lede">Three founders. One to one with me. Live and unedited, in front of everyone.</p>
-  <div class="meta">
-    <span class="pill">45 minutes</span>
-    <span class="pill">Live on Instagram &amp; TikTok</span>
-    <span class="pill g">3 seats</span>
+  <div class="facts">
+    <div><b>3</b><span>Seats</span></div>
+    <div><b>45</b><span>Minutes</span></div>
+    <div><b>£0</b><span>Cost</span></div>
   </div>
-  <a class="cta" href="#apply">Apply for a seat<span class="s">Takes two minutes</span></a>
+  <a class="cta" href="#apply">Apply for a seat</a>
 </header>
 
-<hr>
-
 <section>
-  <h2>Most founders aren't quiet because they've nothing to say.</h2>
-  <p>You've built something real. You know more about your field than almost anyone you follow. And if someone searched your name tonight, they'd find almost nothing.</p>
-  <p>That isn't a content problem. You've tried content. You posted for a few weeks, it went nowhere, you stopped, and you put it down to not being consistent.</p>
-  <p style="margin-bottom:0"><strong style="font-weight:700">You built a company. Consistency isn't your problem.</strong> Something else is going on, and in 45 minutes I'll tell you exactly what it is.</p>
+  <p class="ink" style="font-size:19px">You've built something real. You know more about your field than almost anyone you follow. And if someone searched your name tonight, they'd find close to nothing.</p>
+  <p>That isn't a content problem. You've tried content. You posted for a few weeks, nothing happened, you stopped, and you put it down to not being consistent.</p>
+  <p style="margin-bottom:0"><strong>You built a company. Consistency isn't your problem.</strong> In 45 minutes I'll tell you what actually is.</p>
 </section>
 
-<hr>
-
 <section>
-  <p class="lbl">What happens in the session</p>
-  <div class="tl">
-    <div class="r"><span class="t">0—10</span><span class="d"><b>Your business</b>What you do, who you serve, and how clients actually find you today.</span></div>
-    <div class="r"><span class="t">10—25</span><span class="d"><b>The inventory</b>What you already carry that you've never put anywhere. This is usually the part that surprises people.</span></div>
-    <div class="r"><span class="t">25—40</span><span class="d"><b>Why you haven't said it</b>The real reason, named out loud. Not discipline. Not time.</span></div>
-    <div class="r"><span class="t">40—45</span><span class="d"><b>One sentence</b>Something you could post tomorrow, in your words, that you'd stand behind.</span></div>
-  </div>
-  <p style="margin:20px 0 0;color:var(--mid)">No pitch. Nothing to buy at the end. I'm not selling anything on these calls and I won't.</p>
+  <h2>What happens</h2>
+  <ol class="steps">
+    <li><b>Your business</b><span>What you do, and how clients actually find you today.</span></li>
+    <li><b>The inventory</b><span>What you already carry that you've never put anywhere.</span></li>
+    <li><b>Why you've never said it</b><span>The real reason, named out loud. Not discipline. Not time.</span></li>
+    <li><b>One sentence</b><span>Something you could post tomorrow, in your words, that you'd stand behind.</span></li>
+  </ol>
+  <p style="margin:26px 0 0"><strong>No pitch. Nothing to buy at the end.</strong> I'm not selling anything on these and I won't.</p>
 </section>
 
-<hr>
-
 <section>
-  <div class="two">
-    <div class="box y">
-      <h3>This is for you if</h3>
+  <div class="who">
+    <div>
+      <h3>For you if</h3>
       <ul>
         <li>You already run something that makes money</li>
         <li>People who know your work rate you highly</li>
         <li>Nobody outside that circle has heard of you</li>
-        <li>Most of your clients arrive by referral</li>
-        <li>You're willing to do it live, in public</li>
+        <li>You're willing to do it live</li>
       </ul>
     </div>
-    <div class="box n">
-      <h3>This isn't for you if</h3>
+    <div class="no">
+      <h3>Not if</h3>
       <ul>
         <li>You're still working out what to sell</li>
         <li>You want someone to post for you</li>
-        <li>You're looking for follower growth tactics</li>
         <li>You'd rather not be on camera</li>
       </ul>
     </div>
   </div>
 </section>
 
-<hr>
+<section id="apply">
+  <h2>Apply</h2>
+  <p style="margin-bottom:28px">I read every one myself, and I'll message everyone who applies, chosen or not.</p>
 
-<section>
-  <h2>Why I'm doing this for free.</h2>
-  <p>Two reasons, and I'd rather say them than have you wonder.</p>
-  <p><strong style="font-weight:700">One.</strong> I've done this privately for years and never once on camera. I want it on record, so people can see the work instead of taking my word for it.</p>
-  <p style="margin-bottom:0"><strong style="font-weight:700">Two.</strong> I'd rather three founders get something real than a hundred people get a PDF.</p>
-</section>
-
-<hr>
-
-<section>
-  <p class="quote">You're not going to leave with a strategy document. You're going to leave knowing what you're worth and why you've been quiet about it.<em>Michael Pepper</em></p>
-</section>
-
-<hr>
-
-<section>
-  <p class="lbl">Apply</p>
-  <h2 style="margin-bottom:8px">Three seats. Closes tonight.</h2>
-  <p style="color:var(--mid);margin-bottom:26px">I read every one of these myself and I'll message everyone who applies, chosen or not.</p>
-
-  <form id="apply" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+  <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
 
     <div class="fg">
-      <label for="name">Your name <span class="req">*</span></label>
-      <input type="text" id="name" name="name" required autocomplete="name">
+      <label for="n">Your name</label>
+      <input type="text" id="n" name="name" required autocomplete="name">
     </div>
 
     <div class="fg">
-      <label for="handle">Instagram handle <span class="req">*</span></label>
-      <input type="text" id="handle" name="instagram" placeholder="@" required>
+      <label for="ig">Instagram handle</label>
+      <input type="text" id="ig" name="instagram" placeholder="@" required>
     </div>
 
     <div class="fg">
-      <label for="email">Email <span class="req">*</span></label>
-      <input type="email" id="email" name="email" required autocomplete="email">
+      <label for="em">Email</label>
+      <input type="email" id="em" name="email" required autocomplete="email">
     </div>
 
     <div class="fg">
-      <label for="biz">What's your business, in one line? <span class="req">*</span></label>
-      <input type="text" id="biz" name="business" required>
+      <label for="bz">What's your business, in one line?</label>
+      <input type="text" id="bz" name="business" required>
     </div>
 
     <div class="fg">
-      <label>Roughly what does it make a month? <span class="req">*</span>
+      <label>Roughly what does it make a month?
         <span class="hint">Honest answer. It's the main thing I'm choosing on.</span></label>
-      <div class="radios">
+      <div class="opts">
         <label><input type="radio" name="revenue" value="Under 2k" required> Under £2k</label>
-        <label><input type="radio" name="revenue" value="2k-10k"> £2k to £10k</label>
-        <label><input type="radio" name="revenue" value="10k-30k"> £10k to £30k</label>
-        <label><input type="radio" name="revenue" value="30k+"> £30k or more</label>
+        <label><input type="radio" name="revenue" value="2k to 10k"> £2k to £10k</label>
+        <label><input type="radio" name="revenue" value="10k to 30k"> £10k to £30k</label>
+        <label><input type="radio" name="revenue" value="30k plus"> £30k or more</label>
       </div>
     </div>
 
     <div class="fg">
-      <label for="stop">What's actually stopped you putting yourself out there? <span class="req">*</span>
+      <label for="st">What's actually stopped you putting yourself out there?
         <span class="hint">Be honest. This is the question I'm really reading.</span></label>
-      <textarea id="stop" name="what_stops_you" required></textarea>
+      <textarea id="st" name="what_stops_you" required></textarea>
     </div>
 
     <div class="fg">
-      <label>Which days could you do? <span class="req">*</span>
-        <span class="hint">Sessions run Sunday, Monday and Tuesday.</span></label>
-      <div class="checks">
+      <label>Which days could you do?</label>
+      <div class="opts">
         <label><input type="checkbox" name="days" value="Sunday"> Sunday</label>
         <label><input type="checkbox" name="days" value="Monday"> Monday</label>
         <label><input type="checkbox" name="days" value="Tuesday"> Tuesday</label>
@@ -248,18 +209,16 @@ footer p{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transf
     </div>
 
     <div class="consent">
-      <p><strong style="font-weight:700">One thing to be clear about.</strong> This session is broadcast live on Instagram and TikTok, recorded, posted to YouTube afterwards, and cut into shorter clips. That's the trade: you get the session, I get to show the work.</p>
-      <label><input type="checkbox" name="consent" value="yes" required> I'm happy with that <span class="req">*</span></label>
+      <p><strong>One thing to be clear about.</strong> This is broadcast live on Instagram and TikTok, recorded, posted to YouTube, and cut into clips. That's the trade: you get the session, I get to show the work.</p>
+      <label><input type="checkbox" name="consent" value="yes" required> I'm happy with that</label>
     </div>
 
     <button type="submit">Send my application</button>
-    <p class="fine">Applications close tonight. I'll message everyone either way.</p>
+    <p class="fine">Closes tonight. I'll message everyone either way.</p>
   </form>
 </section>
 
-<footer>
-  <p>Michael Pepper</p>
-</footer>
+<footer><p>Michael Pepper</p></footer>
 
 </div>
 </body>
