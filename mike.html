@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Michael Pepper Operating Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap">
+<style>
+:root{
+ --bg:#F6F5F2; --panel:#FFFFFF; --panel2:#FCFBF9;
+ --line:#E5E1D9; --line2:#CFC9BE;
+ --ink:#14130F; --mid:#4B463F; --mute:#8B847A;
+ --gold:#A07726; --goldbg:#FBF3E2; --goldline:#E9D9AE;
+ --green:#2C6B4C; --greenbg:#E9F3ED;
+ --red:#9A3B32; --redbg:#FBEDEB;
+ --blue:#2A5674; --bluebg:#EAF1F6;
+ --sans:'Inter',system-ui,-apple-system,sans-serif;
+ --mono:'DM Mono',ui-monospace,Menlo,monospace;
+ --sbw:248px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;
+ -webkit-font-smoothing:antialiased}
+
+/* ============ SIDEBAR ============ */
+.sb{position:fixed;left:0;top:0;bottom:0;width:var(--sbw);background:var(--panel);
+ border-right:1px solid var(--line);display:flex;flex-direction:column;z-index:50;overflow-y:auto}
+.sb .brand{padding:22px 22px 16px;border-bottom:1px solid var(--line)}
+.sb .brand b{display:block;font-size:16px;font-weight:800;letter-spacing:-.025em}
+.sb .brand span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.2em;
+ text-transform:uppercase;color:var(--gold);margin-top:5px}
+.sb nav{padding:12px 10px;display:flex;flex-direction:column;gap:1px;flex:1}
+.sb nav button{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:transparent;
+ border:0;border-radius:9px;padding:10px 12px;cursor:pointer;color:var(--mid);font-family:var(--sans);
+ font-size:14.5px;font-weight:600;transition:background .14s,color .14s}
+.sb nav button svg{width:17px;height:17px;flex:none;color:var(--mute)}
+.sb nav button:hover{background:var(--bg);color:var(--ink)}
+.sb nav button[aria-current="true"]{background:var(--ink);color:#fff}
+.sb nav button[aria-current="true"] svg{color:var(--gold)}
+.sb .ft{padding:16px 22px;border-top:1px solid var(--line);font-family:var(--mono);
+ font-size:10px;letter-spacing:.14em;color:var(--mute);text-transform:uppercase}
+
+/* ============ MAIN ============ */
+main{margin-left:var(--sbw);min-height:100vh}
+.inner{max-width:1180px;margin:0 auto;padding:36px 34px 90px}
+section{display:none}
+section.on{display:block;animation:fade .22s ease}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+.shead{margin-bottom:26px}
+.ph{font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+h1{font-size:clamp(26px,3.4vw,38px);font-weight:900;letter-spacing:-.04em;margin:9px 0 0;line-height:1.08}
+.sub{color:var(--mid);font-size:17px;margin:11px 0 0;max-width:68ch}
+
+h2.lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+ color:var(--mute);font-weight:500;margin:34px 0 13px;display:flex;align-items:center;gap:12px}
+h2.lbl::after{content:"";flex:1;height:1px;background:var(--line2)}
+
+/* cards */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:21px 22px}
+.card.gold{border-top:3px solid var(--gold)}
+.card h3{margin:0 0 13px;font-size:16px;font-weight:800;letter-spacing:-.022em;display:flex;align-items:center;gap:9px}
+.card h3 svg{width:18px;height:18px;color:var(--gold);flex:none}
+.card ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.card li{font-size:15px;color:var(--mid);padding-left:17px;position:relative;line-height:1.52}
+.card li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:2px;background:var(--goldline)}
+.card li b{color:var(--ink);font-weight:700}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(172px,1fr));gap:13px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:17px 18px}
+.stat b{display:block;font-size:28px;font-weight:900;letter-spacing:-.04em;line-height:1}
+.stat span{display:block;font-size:14px;color:var(--mid);margin-top:6px;font-weight:600}
+.stat i{font-style:normal;display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+ text-transform:uppercase;color:var(--mute);margin-top:8px;line-height:1.5}
+.stat.g{background:var(--goldbg);border-color:var(--goldline)}.stat.g b{color:var(--gold)}
+.stat.w{background:var(--greenbg);border-color:#C6DECF}.stat.w b{color:var(--green)}
+.stat.r{background:var(--redbg);border-color:#EBCFCB}.stat.r b{color:var(--red)}
+
+/* bars */
+.bars{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;
+ display:flex;flex-direction:column;gap:13px}
+.bar .bt{display:flex;justify-content:space-between;gap:12px;font-size:14.5px;margin-bottom:6px}
+.bar .bt b{font-family:var(--mono);font-size:13px;color:var(--ink);flex:none}
+.bar .bt span{color:var(--mid)}
+.bar .tr{height:9px;background:var(--bg);border-radius:99px;overflow:hidden}
+.bar .fl{height:100%;background:var(--goldline);border-radius:99px}
+.bar.hot .fl{background:var(--gold)}
+.bar.hot .bt span{color:var(--ink);font-weight:700}
+
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.nd{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:16px 16px;
+ display:flex;flex-direction:column;gap:9px}
+.nd .hd{display:flex;align-items:center;gap:9px}
+.nd .num{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:#fff;background:var(--ink);
+ border-radius:5px;padding:3px 7px}
+.nd .ic{margin-left:auto;color:var(--gold)}.nd .ic svg{width:20px;height:20px;display:block}
+.nd h4{margin:0;font-size:16px;font-weight:800;letter-spacing:-.025em}
+.nd .when{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);
+ background:var(--goldbg);border:1px solid var(--goldline);border-radius:99px;padding:2px 8px;align-self:flex-start}
+.nd p{margin:0;font-size:13.5px;color:var(--mid);line-height:1.48}
+.nd .out{margin-top:auto;padding-top:9px;border-top:1px dashed var(--line2);
+ font-family:var(--mono);font-size:10.5px;color:var(--green);line-height:1.45}
+.nd.hot{border-color:var(--gold);box-shadow:0 0 0 3px var(--goldbg)}
+.nd.win{border-color:var(--green);box-shadow:0 0 0 3px var(--greenbg)}
+
+/* table */
+.tw{overflow-x:auto;min-width:0;max-width:100%;background:var(--panel);border:1px solid var(--line);
+ border-radius:14px;padding:4px 22px 14px}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:520px}
+th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.17em;text-transform:uppercase;
+ color:var(--mute);font-weight:500;padding:15px 12px 10px 0;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:11px 12px 11px 0;border-bottom:1px solid var(--line);color:var(--mid);vertical-align:top}
+td:first-child{color:var(--ink);font-weight:650}
+td.n{font-family:var(--mono);font-size:13px;color:var(--ink);text-align:right;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+tr.tot td{font-weight:800;color:var(--ink);border-top:2px solid var(--ink);border-bottom:0;padding-top:14px}
+tr.tot td.n{color:var(--green);font-size:16px}
+
+/* quote */
+.q{background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--gold);
+ border-radius:0 12px 12px 0;padding:17px 22px;font-size:17px;color:var(--ink);line-height:1.55}
+.q.big{font-size:21px;font-weight:700;letter-spacing:-.02em}
+.q em{font-style:normal;color:var(--mute);font-size:13px;display:block;margin-top:9px;font-family:var(--mono)}
+
+/* money strip */
+.money{display:flex;gap:30px;flex-wrap:wrap;background:var(--ink);border-radius:14px;padding:19px 24px;color:#fff}
+.money div span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.17em;
+ text-transform:uppercase;opacity:.55}
+.money div b{display:block;font-size:25px;font-weight:900;letter-spacing:-.035em;margin-top:4px}
+.money .p b{color:#7FCFA4}
+
+/* open */
+.oi{background:#FFFBF3;border:1px solid var(--goldline);border-radius:12px;padding:15px 17px}
+.oi b{display:block;font-size:14.5px;font-weight:750;margin-bottom:4px}
+.oi span{font-size:13.5px;color:var(--mid);line-height:1.45;display:block}
+
+.note{margin:16px 0 0;text-align:center;color:var(--gold);font-size:15.5px;font-weight:650}
+.warn{background:var(--redbg);border:1px solid #EBCFCB;border-radius:12px;padding:15px 18px;
+ font-size:14.5px;color:#6E2C25;line-height:1.5}
+.warn b{color:var(--red)}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:1080px){.cols3{grid-template-columns:1fr 1fr}.flow{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:900px){
+ :root{--sbw:0px}
+ .sb{position:static;width:auto;flex-direction:row;align-items:center;gap:0;border-right:0;
+  border-bottom:1px solid var(--line);overflow-x:auto}
+ .sb .brand{border-bottom:0;border-right:1px solid var(--line);padding:14px 16px;flex:none}
+ .sb .brand span{display:none}
+ .sb nav{flex-direction:row;padding:8px;gap:4px;flex-wrap:nowrap}
+ .sb nav button{white-space:nowrap;padding:8px 11px;font-size:13.5px}
+ .sb nav button svg{display:none}
+ .sb .ft{display:none}
+ main{margin-left:0}
+ .inner{padding:24px 18px 70px}
+ .cols,.cols3{grid-template-columns:1fr}
+ .flow{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){.flow{grid-template-columns:1fr}.money{gap:18px}}
+</style>
+</head>
+<body>
+
+<aside class="sb">
+  <div class="brand"><b>Michael Pepper</b><span>Operating Board</span></div>
+  <nav>
+    <button data-s="1" aria-current="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Overview</button>
+    <button data-s="2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>The Client</button>
+    <button data-s="3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>The Buyer</button>
+    <button data-s="4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l2.4 5.6 6 .5-4.6 4 1.4 5.9L12 15.9 6.8 19l1.4-5.9-4.6-4 6-.5z"/></svg>Positioning</button>
+    <button data-s="5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>The Offer</button>
+    <button data-s="6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 15a2 2 0 01-2 2H8l-4 4V5a2 2 0 012-2h12a2 2 0 012 2z"/></svg>Objections</button>
+    <button data-s="7"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></svg>The Plan</button>
+    <button data-s="8"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>The Numbers</button>
+    <button data-s="9"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg>Open Items</button>
+  </nav>
+  <div class="ft">Sept 2026 · v1</div>
+</aside>
+
+<main><div class="inner">
+
+<!-- ══════════ 1 OVERVIEW ══════════ -->
+<section class="on" data-s="1">
+  <div class="shead">
+    <div class="ph">Overview</div>
+    <h1>Story to signed, in ten days.</h1>
+    <p class="sub">Zero ad spend. Three free lives create the proof, the proof fills the webinar, the webinar fills three seats at $7,000.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat w"><b>$21k–28k</b><span>Target</span><i>One warm webinar</i></div>
+    <div class="stat"><b>$7,000</b><span>Price</span><i>90 days · 3 per intake</i></div>
+    <div class="stat"><b>1,400</b><span>Owned audience</span><i>900 email + 500 Telegram</i></div>
+    <div class="stat"><b>16.2K</b><span>Instagram</span><i>~300 story views · 2% reach</i></div>
+    <div class="stat g"><b>$0</b><span>Ad budget</span><i>Organic only, for now</i></div>
+    <div class="stat r"><b>0 → 3</b><span>Case studies</span><i>Three lives create them</i></div>
+  </div>
+
+  <h2 class="lbl">The whole thing in one paragraph</h2>
+  <div class="card gold">
+    <ul>
+      <li><b>The problem.</b> Michael has real standing — speaker, consultant, podcast, a private founders' table — and nothing he has ever built has taken a payment. No case studies for the package.</li>
+      <li><b>The unlock.</b> Three founders, one to one, live and unedited on Instagram and TikTok. Free. No pitch. That produces the proof in 48 hours instead of 90 days.</li>
+      <li><b>The bridge.</b> Those sessions become YouTube videos and clips. The clips carry a single call to action: a free masterclass.</li>
+      <li><b>The close.</b> The masterclass runs on the affluent framework, leans on three fresh case studies, and ends in an application. Three seats at $7,000.</li>
+    </ul>
+  </div>
+
+  <h2 class="lbl">Why this works, in one line each</h2>
+  <div class="cols3">
+    <div class="card"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 4v5c0 5-3.4 8.2-8 9-4.6-.8-8-4-8-9V7z"/></svg>It makes the proof</h3><p style="margin:0;font-size:14.5px;color:var(--mid)">Every document we built carried a note saying no proof exists. This removes it, for free, before anything is sold.</p></div>
+    <div class="card"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M12 5v14"/></svg>It gives him an entry asset</h3><p style="margin:0;font-size:14.5px;color:var(--mid)">Every competitor has one. Priestley a strategy call, Welsh a guide, Vaden a brand call. Michael had nothing.</p></div>
+    <div class="card"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Nobody else can copy it</h3><p style="margin:0;font-size:14.5px;color:var(--mid)">You cannot livestream a content retainer. He sells a conversation, so the whole mechanism fits in one recordable hour.</p></div>
+  </div>
+</section>
+
+<!-- ══════════ 2 THE CLIENT ══════════ -->
+<section data-s="2">
+  <div class="shead">
+    <div class="ph">The Client</div>
+    <h1>Michael Pepper</h1>
+    <p class="sub">International speaker, personal branding consultant, podcast host, convenor of a private founders' table. Real standing. No case studies for this package.</p>
+  </div>
+
+  <div class="q big">"Where I'm mostly strong is speaking life into people and helping them see themselves at a greater level."<em>Michael, on the discovery call</em></div>
+
+  <h2 class="lbl">What he has</h2>
+  <div class="cols">
+    <div class="card gold"><h3>Assets</h3><ul>
+      <li><b>16.2K Instagram</b>, plus TikTok, plus two pages — personal and The Institute</li>
+      <li><b>900 email subscribers.</b> The most valuable thing he owns</li>
+      <li><b>500 in Telegram</b>, the Lions Circle. Dormant for months</li>
+      <li><b>The Founder's Table.</b> 22 seats, private, in Lagos</li>
+      <li><b>A podcast</b> and an international speaking record</li>
+      <li><b>A content team</b>, size unconfirmed</li>
+    </ul></div>
+    <div class="card"><h3>What's missing</h3><ul>
+      <li><b>Any paid client.</b> The $97 Forum and the $4,997 Pilot both exist on paper and neither has ever taken a payment</li>
+      <li><b>Case studies.</b> The binding constraint on everything</li>
+      <li><b>A free entry asset.</b> Every competitor has one</li>
+      <li><b>Ad budget.</b> None, currently</li>
+      <li><b>A credibility line and a Clients highlight</b> on the profile. Both slots empty</li>
+    </ul></div>
+  </div>
+
+  <h2 class="lbl">His two named advantages</h2>
+  <div class="cols">
+    <div class="card"><h3>Communication</h3><p style="margin:0;font-size:15px;color:var(--mid)">He grew up around cameras. His buyers did not. They have spent twenty years learning to do the work and nobody ever taught them to be seen doing it.</p></div>
+    <div class="card"><h3>Confidence</h3><p style="margin:0;font-size:15px;color:var(--mid)">Not motivation. The specific ability to get someone past the reason they have never said the thing out loud.</p></div>
+  </div>
+
+  <div class="warn" style="margin-top:15px"><b>The division he set himself:</b> he handles the mental and the spoken. The team handles scripting, editing, CRM and production. That split is now part of the promise, which makes the team's capacity a positioning risk, not just an operational one.</div>
+</section>
+
+<!-- ══════════ 3 THE BUYER ══════════ -->
+<section data-s="3">
+  <div class="shead">
+    <div class="ph">The Buyer</div>
+    <h1>The Quiet Earner</h1>
+    <p class="sub">A founder whose business is doing real numbers and whose name is worth nothing, who has spent years hiding behind the company and calling it professionalism.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>£200k–£2M</b><span>Revenue band</span><i>Priestley's published ICP</i></div>
+    <div class="stat"><b>25–34</b><span>Age</span><i>96% of his audience under 35</i></div>
+    <div class="stat"><b>71%</b><span>UK</span><i>Then US and Canada</i></div>
+  </div>
+
+  <h2 class="lbl">Three barriers, in this order</h2>
+  <div class="cols3">
+    <div class="card gold"><h3>1 · The shift</h3><p style="margin:0 0 10px;font-size:14.5px;color:var(--mid)">They hide behind the business and believe that is the professional thing to do.</p><div class="q" style="font-size:14.5px;padding:11px 15px">"The business should speak for itself, not me."</div></div>
+    <div class="card"><h3>2 · The system</h3><p style="margin:0 0 10px;font-size:14.5px;color:var(--mid)">Content is the only task with no deadline and nobody chasing it, so it is the only one that can be dropped.</p><div class="q" style="font-size:14.5px;padding:11px 15px">"I don't have time. I'm running a business."</div></div>
+    <div class="card"><h3>3 · The leverage</h3><p style="margin:0 0 10px;font-size:14.5px;color:var(--mid)">Every pound of trust sits inside a logo, and a logo cannot have a relationship with anyone.</p><div class="q" style="font-size:14.5px;padding:11px 15px">"Everyone knows the brand. Nobody knows me."</div></div>
+  </div>
+
+  <div class="q big" style="margin-top:15px">The load-bearing belief: <b>promoting yourself is what people do when the work isn't good enough to speak for itself.</b><em>Never said out loud. Completely believed. Everything else rests on it.</em></div>
+
+  <h2 class="lbl">His own poll — what's actually stopping you</h2>
+  <div class="bars">
+    <div class="bar hot"><div class="bt"><span>No system, no consistency</span><b>47%</b></div><div class="tr"><div class="fl" style="width:47%"></div></div></div>
+    <div class="bar"><div class="bt"><span>I don't know what to say or who I am on camera</span><b>31%</b></div><div class="tr"><div class="fl" style="width:31%"></div></div></div>
+    <div class="bar"><div class="bt"><span>Time, I'm running a business</span><b>14%</b></div><div class="tr"><div class="fl" style="width:14%"></div></div></div>
+    <div class="bar"><div class="bt"><span>Fear of people's thoughts — work, church, family</span><b>8%</b></div><div class="tr"><div class="fl" style="width:8%"></div></div></div>
+  </div>
+  <p class="note">The system blocker beats the mindset blocker. Enter through consistency, arrive at the reason. Do not open on mindset.</p>
+
+  <h2 class="lbl">If your name was known, what would it do?</h2>
+  <div class="bars">
+    <div class="bar hot"><div class="bt"><span>Bring me clients and deals</span><b>37%</b></div><div class="tr"><div class="fl" style="width:37%"></div></div></div>
+    <div class="bar"><div class="bt"><span>Get me out of the 9-5 on my terms</span><b>29%</b></div><div class="tr"><div class="fl" style="width:29%"></div></div></div>
+    <div class="bar"><div class="bt"><span>Make me the authority in my industry</span><b>24%</b></div><div class="tr"><div class="fl" style="width:24%"></div></div></div>
+    <div class="bar"><div class="bt"><span>Give me confidence and direction</span><b>10%</b></div><div class="tr"><div class="fl" style="width:10%"></div></div></div>
+  </div>
+
+  <h2 class="lbl">Not the customer</h2>
+  <div class="card"><ul>
+    <li><b>Anyone under six figures.</b> The mechanism assumes trapped value and the return assumes a machine that already converts attention into revenue</li>
+    <li><b>Anyone who wants the system without the correction.</b> They buy tactics, run three weeks, stop, and blame the tactics</li>
+    <li><b>Anyone who wants it done entirely for them</b> while staying out of frame</li>
+    <li><b>Anyone wanting guaranteed revenue, reach or content performance.</b> Not served, by choice</li>
+  </ul></div>
+</section>
+
+<!-- ══════════ 4 POSITIONING ══════════ -->
+<section data-s="4">
+  <div class="shead">
+    <div class="ph">Positioning</div>
+    <h1>Four slots, four sentences.</h1>
+    <p class="sub">One sentence cannot do every job. The thesis belongs where someone is already listening, not where a stranger meets it cold.</p>
+  </div>
+
+  <div class="tw"><table>
+    <thead><tr><th>Where</th><th>What to say</th></tr></thead>
+    <tbody>
+      <tr><td>Registration page, ads</td><td>Outcome first. <i>How to become the name your industry thinks of first, in 90 days, without posting every day.</i></td></tr>
+      <tr><td>Bio, short intros</td><td>I help 6 and 7 figure entrepreneurs build the brand that matches who they actually are.</td></tr>
+      <tr><td>Webinar, content, stage</td><td><b>Your brand will never outgrow how you see yourself.</b></td></tr>
+      <tr><td>Sales call</td><td>Lead with the artifact. The identity work is how it gets made.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="lbl">The thesis</h2>
+  <div class="q">Every personal brand coach will sell you a system.<br><br>You have already bought one. You ran it for three weeks and stopped, and then you decided you were not consistent.<br><br><b>You are not inconsistent. You built a company.</b><br><br>I work on the reason you stop before I touch a single thing you post.</div>
+  <p class="note">It needs no proof, because the buyer supplies it. They already bought the course and stopped.</p>
+
+  <h2 class="lbl">Why nobody else can say it</h2>
+  <div class="tw"><table>
+    <thead><tr><th></th><th>What they sell</th><th>What they cannot do</th></tr></thead>
+    <tbody>
+      <tr><td>The content coach</td><td>Hooks, systems, editing, schedules</td><td>Get you past the reason you deleted the post</td></tr>
+      <tr><td>The mindset coach</td><td>Confidence, identity, belief work</td><td>Tell you what to say or how to say it on camera</td></tr>
+      <tr><td><b>Michael</b></td><td><b>Both, weighted to the mental</b></td><td>—</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="lbl">Who he's actually up against</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Person</th><th>Position</th><th>Audience</th><th>Price</th></tr></thead>
+    <tbody>
+      <tr><td>Daniel Priestley</td><td>Key Person of Influence. "Not a course, a production environment. 17 real assets"</td><td class="n">5,000+ clients</td><td class="n">Unpublished · 12 mo</td></tr>
+      <tr><td>Amelia Sordell</td><td>"I help founders tell their stories." Klowt, 100% inbound</td><td class="n">370k</td><td class="n">~€100k/yr</td></tr>
+      <tr><td>Jack Mason</td><td>"I help entrepreneurs build profitable personal brands"</td><td class="n">96.7k</td><td class="n">DM to work 1:1</td></tr>
+      <tr><td>Rory Vaden</td><td>Brand Builders. Leads with client names, not frameworks</td><td class="n">—</td><td class="n">Free brand call</td></tr>
+      <tr><td><b>Michael</b></td><td><b>The reason you stop</b></td><td class="n">16.2k</td><td class="n">$7,000 · 90 days</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="card gold" style="margin-top:15px"><h3>Three patterns worth copying</h3><ul>
+    <li><b>Nobody publishes a price.</b> All five gate behind an application, a call or a DM</li>
+    <li><b>Everybody has a free entry asset.</b> The three lives become his</li>
+    <li><b>The proof is audience size or client names.</b> 370k, 200k, 96.7k, or "Lewis Howes and Ed Mylett." He has 16.2k and no names — for another 48 hours</li>
+  </ul></div>
+
+  <div class="warn" style="margin-top:15px"><b>The gap he fits into:</b> Sordell charges toward €100k a year at the top and €56 a month at the bottom, with nothing in between. A founder at six figures who wants real work cannot reach her. <b>$7,000 sits precisely in that gap</b>, and that is a better argument for the price than anything internal.</div>
+</section>
+
+<!-- ══════════ 5 THE OFFER ══════════ -->
+<section data-s="5">
+  <div class="shead">
+    <div class="ph">The Offer</div>
+    <h1>The 90-Day Named Founder Intensive</h1>
+    <p class="sub">Become the name people in your industry think of first, within 90 days, so your business stops depending on who happens to remember you.</p>
+  </div>
+
+  <div class="money">
+    <div><span>Total value</span><b>$30,200</b></div>
+    <div class="p"><span>Investment</span><b>$7,000</b></div>
+    <div><span>Ratio</span><b>4.3×</b></div>
+    <div><span>Capacity</span><b>3 per intake</b></div>
+  </div>
+
+  <h2 class="lbl">The stack</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Component</th><th>Delivered by</th><th style="text-align:right">Value</th></tr></thead>
+    <tbody>
+      <tr><td>The Permission Intensive</td><td>Michael</td><td class="n">$4,000</td></tr>
+      <tr><td>The Value Inventory</td><td>Michael</td><td class="n">$2,500</td></tr>
+      <tr><td>The Voice Sessions</td><td>Michael</td><td class="n">$3,000</td></tr>
+      <tr><td>Your Message and Pillars</td><td>Michael</td><td class="n">$2,000</td></tr>
+      <tr><td>The Content Operating System</td><td>Team</td><td class="n">$2,500</td></tr>
+      <tr><td>The Capture System</td><td>Team</td><td class="n">$1,500</td></tr>
+      <tr><td>Full production, 90 days</td><td>Team</td><td class="n">$6,000</td></tr>
+      <tr><td>The Conversion Path</td><td>Team</td><td class="n">$2,000</td></tr>
+      <tr><td>A seat at the Founder's Table</td><td>Access</td><td class="n">$2,500</td></tr>
+      <tr><td>The Forum, twelve months</td><td>Access</td><td class="n">$1,200</td></tr>
+      <tr><td>Bonuses — First Fortnight, Standards, 6-month review</td><td>—</td><td class="n">$3,000</td></tr>
+      <tr class="tot"><td>Total value</td><td></td><td class="n">$30,200</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="lbl">The guarantee</h2>
+  <div class="card gold">
+    <p style="margin:0 0 12px;font-size:15.5px;color:var(--mid)">At the end of 90 days you own a named positioning, a documented body of your own expertise, a content system that runs, and 90 days of published work. If any of those do not exist, the work continues at no extra charge.</p>
+    <div class="q" style="font-size:16px">"I don't guarantee revenue, reach or follower growth. <b>Anyone who does is guessing with your money.</b>"</div>
+  </div>
+  <p class="note">An existence guarantee, not a results guarantee. His own documents forbid the second, and this buyer is repelled by it.</p>
+
+  <h2 class="lbl">Payment</h2>
+  <div class="cols">
+    <div class="card"><h3>Pay in full</h3><p style="margin:0;font-size:15px;color:var(--mid)">$7,000. Cleanest, and the best cash position. <b>Never discount for it — add something instead.</b> A discount teaches the buyer the price is soft and every conversation after becomes a haggle.</p></div>
+    <div class="card"><h3>Split pay</h3><p style="margin:0;font-size:15px;color:var(--mid)">Deposit plus instalments across the 90 days. Removes affordability without lowering the price. <b>Terms never appear on the page</b> — they come out on the call, answering a real objection.</p></div>
+  </div>
+
+  <div class="warn" style="margin-top:15px"><b>Say this on every call:</b> "Don't price this monthly, it isn't a retainer. A retainer buys output that stops when you stop paying. This buys things you keep." Divide by three and they land on "cheap," and this buyer reads price as a signal.</div>
+</section>
+
+<!-- ══════════ 6 OBJECTIONS ══════════ -->
+<section data-s="6">
+  <div class="shead">
+    <div class="ph">Objections</div>
+    <h1>Answer, then stop talking.</h1>
+    <p class="sub">From the SOP's affluent track: avoid apologetic or timid statements, set a decisive tone, clarity over detail. A long answer to an objection reads as justification.</p>
+  </div>
+
+  <h2 class="lbl">The five that decide it</h2>
+
+  <div class="card gold" style="margin-bottom:14px"><h3>"Who have you done this for?"</h3>
+    <div class="q">"Privately, for years. And publicly — I did three of these on camera recently, unedited, with founders who'd never met me. Go and watch one. What happens in that hour is what happens in the first session."</div>
+    <p style="margin:12px 0 0;font-size:14px;color:var(--mute)">The strongest position available to anyone selling anything: stop arguing and show them.</p></div>
+
+  <div class="card" style="margin-bottom:14px"><h3>"I've bought programmes before."</h3>
+    <div class="q">"What was it, and what happened?" <i>Listen.</i> "Was the information wrong?" <i>Usually no.</i> "So you knew what to do and stopped doing it. That's the part I work on."</div>
+    <p style="margin:12px 0 0;font-size:14px;color:var(--mute)">The strongest handle in the bank, because the buyer supplies the proof.</p></div>
+
+  <div class="card" style="margin-bottom:14px"><h3>"Shouldn't the business be the brand, not me?"</h3>
+    <div class="q">"Who recommended you to your last client? A person. Businesses don't speak, people do.<br><br>And on whether this makes the business harder to sell — buyers pay for demand that continues without you. Right now your demand runs through whoever happens to remember you. That's the part that's hard to sell."</div>
+    <p style="margin:12px 0 0;font-size:14px;color:var(--mute)">The central objection for this buyer. Pre-empt it in the webinar or lose them silently.</p></div>
+
+  <div class="card" style="margin-bottom:14px"><h3>"I don't have time. I'm running a business."</h3>
+    <div class="q">"You make time for everything with a deadline. This has none, which is why it's the only thing that slips without anyone noticing. That's not a time problem. And it's why production is handled — I need your presence, not your hours."</div></div>
+
+  <div class="card"><h3>"Will this make me look like one of those people?"</h3>
+    <div class="q">"No. If it did I'd have the same problem with it you do. Nothing goes out with your name on it that you haven't approved in writing. Not as an extra — as the default. The test is whether you'd forward it to your biggest client."</div>
+    <p style="margin:12px 0 0;font-size:14px;color:var(--mute)">Michael's own conduct answers this before any words do.</p></div>
+
+  <h2 class="lbl">The competitive line worth pressing</h2>
+  <div class="q big">Almost nobody else in this market can demonstrate what they sell.<em>You cannot livestream a content retainer. He sells a conversation, so the whole mechanism fits inside one recordable hour.</em></div>
+
+  <h2 class="lbl">How to use the recordings</h2>
+  <div class="card"><ul>
+    <li><b>Not as testimonials.</b> As the answer to whichever objection the person is actually holding</li>
+    <li><b>"I'm not an expert"</b> → the moment a founder said the same thing, and what came after</li>
+    <li><b>"Does it work?"</b> → the last five minutes of any session</li>
+    <li><b>Send one, not three.</b> Three is a brochure. One is an answer</li>
+  </ul></div>
+</section>
+
+<!-- ══════════ 7 THE PLAN ══════════ -->
+<section data-s="7">
+  <div class="shead">
+    <div class="ph">The Plan</div>
+    <h1>Seven stages, ten days.</h1>
+    <p class="sub">Each stage produces the input the next one needs. Nothing is decorative.</p>
+  </div>
+
+  <div class="flow">
+    <div class="nd hot"><div class="hd"><span class="num">01</span><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 6h4"/></svg></span></div><span class="when">Today</span><h4>The Story</h4><p>One slide. Three founders, one to one, live tomorrow. The filter line does the work: "your business makes money."</p><div class="out">Out · Traffic to the application</div></div>
+    <div class="nd"><div class="hd"><span class="num">02</span><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 3h14v18H5z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></span></div><span class="when">Today</span><h4>Apply</h4><p>Twelve questions. Qualifies on revenue, captures consent to record. Four open questions give us the buyer's own words.</p><div class="out">Out · Applications + language</div></div>
+    <div class="nd hot"><div class="hd"><span class="num">03</span><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/></svg></span></div><span class="when">Days 2–3</span><h4>Three Lives</h4><p>45–60 min. Instagram and TikTok. Unedited. No pitch, not once. The last five minutes is the testimonial.</p><div class="out">Out · 3 recordings · the proof</div></div>
+    <div class="nd"><div class="hd"><span class="num">04</span><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 6h18v12H3z"/><path d="M10 9.5l5 2.5-5 2.5z"/></svg></span></div><span class="when">Days 3–4</span><h4>Publish</h4><p>Full sessions to YouTube. Four clips per session everywhere else. Thumbnail and title carry the reach.</p><div class="out">Out · Nurture library</div></div>
+    <div class="nd"><div class="hd"><span class="num">05</span><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 5h18v11H3z"/><path d="M8 20h8M12 16v4"/></svg></span></div><span class="when">Days 4–8</span><h4>Register</h4><p>"For those who didn't get a seat, I have something else." Story sequence plus clip CTAs, all pointing at the masterclass.</p><div class="out">Out · Registrations</div></div>
+    <div class="nd hot"><div class="hd"><span class="num">06</span><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h16v13H4z"/><path d="M8 21h8"/><circle cx="12" cy="10.5" r="2.6"/></svg></span></div><span class="when">Days 9–10</span><h4>The Masterclass</h4><p>60–90 min on the affluent framework. Three fresh case studies plus the 2k→40k story. Ends in an application.</p><div class="out">Out · Applications</div></div>
+    <div class="nd win"><div class="hd"><span class="num">07</span><span class="ic" style="color:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div><span class="when">Days 10+</span><h4>Fit Call → Signed</h4><p>Thirty minutes, assessing fit rather than persuading. Three seats, genuinely three.</p><div class="out" style="color:var(--green)">Out · 3–4 × $7,000</div></div>
+  </div>
+
+  <h2 class="lbl">What happens inside each live</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Minutes</th><th>Segment</th><th>What happens</th></tr></thead>
+    <tbody>
+      <tr><td class="n">0–3</td><td>Frame</td><td>"We've never spoken. By the end you'll know what you're sitting on and why you haven't said it."</td></tr>
+      <tr><td class="n">3–12</td><td>The business</td><td>What they do, who they serve, how clients find them. Listening for the referral dependency.</td></tr>
+      <tr><td class="n">12–25</td><td>The inventory</td><td>"What do clients ask you most? How many times have you answered that?" This is the visible value.</td></tr>
+      <tr><td class="n">25–40</td><td>The block</td><td>"So why hasn't any of this been said publicly?" <b>Then stay quiet.</b> This is what the audience came for.</td></tr>
+      <tr><td class="n">40–50</td><td>The correction</td><td>Name the belief. Say plainly why it's false. Show the cost.</td></tr>
+      <tr><td class="n">50–55</td><td>What they'd say</td><td>One sentence they could post tomorrow, in their words.</td></tr>
+      <tr><td class="n">55–60</td><td>Close</td><td>"How do you feel?" Their unprompted answer <b>is</b> the testimonial.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="lbl">Protect these four things</h2>
+  <div class="cols">
+    <div class="card gold"><h3>Non-negotiable</h3><ul>
+      <li><b>The email list.</b> Last-send date unknown. Mail 90-day openers only, 100 a day, ramping. One blast to a cold 900 burns the sending domain permanently and there is no budget to recover it</li>
+      <li><b>Who gets the three seats.</b> 68% of his audience have nothing to sell. Wrong participants produce the right proof for the wrong buyer</li>
+    </ul></div>
+    <div class="card"><h3>Highest-yield hours</h3><ul>
+      <li><b>Manual DMs.</b> Registrations only reach the expected column if the warm list is worked by hand. Six hours. Easiest thing to skip, most expensive to skip</li>
+      <li><b>Clipping inside 24 hours.</b> Momentum decays fast</li>
+      <li><b>No pitch in the lives.</b> The absence of a pitch is what makes them credible</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ══════════ 8 THE NUMBERS ══════════ -->
+<section data-s="8">
+  <div class="shead">
+    <div class="ph">The Numbers</div>
+    <h1>Organic only. No ad spend.</h1>
+    <p class="sub">Built on what he can reach directly. Instagram followers are algorithm-mediated and excluded from the base — they appear as upside, not as the plan.</p>
+  </div>
+
+  <div class="tw"><table>
+    <thead><tr><th>Stage</th><th style="text-align:right">Conservative</th><th style="text-align:right">Expected</th><th style="text-align:right">Good</th><th>Rate used</th></tr></thead>
+    <tbody>
+      <tr><td>Reachable, owned</td><td class="n">1,400</td><td class="n">1,400</td><td class="n">1,400</td><td>900 email + 500 Telegram</td></tr>
+      <tr><td>Registrations</td><td class="n">35</td><td class="n">60</td><td class="n">95</td><td>2.5 / 4 / 6%, plus stories and clips</td></tr>
+      <tr><td>Show live</td><td class="n">11</td><td class="n">21</td><td class="n">38</td><td>30 / 35 / 40%</td></tr>
+      <tr><td>Stay to the offer</td><td class="n">8</td><td class="n">15</td><td class="n">27</td><td>70% retention</td></tr>
+      <tr><td>Apply</td><td class="n">2</td><td class="n">4</td><td class="n">7</td><td>25% of those at offer</td></tr>
+      <tr><td>Show to the call</td><td class="n">2</td><td class="n">3</td><td class="n">5</td><td>75%</td></tr>
+      <tr><td>Close</td><td class="n">1</td><td class="n">3</td><td class="n">4</td><td>40%, warm with proof</td></tr>
+      <tr class="tot"><td>Collected at $7,000</td><td class="n">$7,000</td><td class="n">$21,000</td><td class="n">$28,000</td><td>One webinar</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="lbl">The three levers that move this most</h2>
+  <div class="cols3">
+    <div class="card gold"><h3>Registration rate</h3><p style="margin:0;font-size:14.5px;color:var(--mid)">Everything downstream scales off it. Manual DMs to the warm list are the difference between the conservative and expected columns.</p></div>
+    <div class="card"><h3>Show rate</h3><p style="margin:0;font-size:14.5px;color:var(--mid)">The SOP's biggest lever is content hitting registrants 15–20 times in the 72 hours before. The clips do that for free.</p></div>
+    <div class="card"><h3>Close rate</h3><p style="margin:0;font-size:14.5px;color:var(--mid)">40% assumes warm plus proof. Without the three case studies this is closer to 15%, and the whole model halves.</p></div>
+  </div>
+
+  <div class="warn" style="margin-top:15px"><b>What is deliberately not in this model:</b> 16.2K Instagram followers, TikTok, and the reach of the three lives themselves. All real, all variable, none of them owned. They are the reason the "good" column is reachable, but a plan built on algorithmic reach is a guess. <b>The owned 1,400 is what we can promise.</b></div>
+</section>
+
+<!-- ══════════ 9 OPEN ══════════ -->
+<section data-s="9">
+  <div class="shead">
+    <div class="ph">Open Items</div>
+    <h1>What's still blocking.</h1>
+    <p class="sub">Six things. Four need Michael, two need a decision from us.</p>
+  </div>
+
+  <h2 class="lbl">Blocking today</h2>
+  <div class="cols">
+    <div class="oi"><b>Story version</b><span>Three drafted. Blocks the post going out, which blocks everything else.</span></div>
+    <div class="oi"><b>Masterclass title</b><span>Three drafted. Blocks the registration page and the whole story sequence.</span></div>
+  </div>
+
+  <h2 class="lbl">Needs Michael</h2>
+  <div class="cols">
+    <div class="oi"><b>Cohort date</b><span>The only honest urgency available. Needs his October calendar, and the webinar has to land before the Lagos dinner on the 18th, not after.</span></div>
+    <div class="oi"><b>Email last-send date</b><span>Decides whether this is a launch or a two-week warm-up. The single biggest hidden risk in the plan.</span></div>
+    <div class="oi"><b>Team capacity</b><span>$6,000 of the stack and the one component he cannot personally guarantee. If the team can't deliver, production comes out and the price has to fall.</span></div>
+    <div class="oi"><b>Founder's Table logistics</b><span>It's in Lagos and it sits in the stack at $2,500. A UK buyer needs to know whether that means travel.</span></div>
+  </div>
+
+  <h2 class="lbl">Resolved</h2>
+  <div class="card"><ul>
+    <li><b>Price.</b> $7,000 flat. No founding discount — the three lives generate the proof that was forcing it</li>
+    <li><b>Payment.</b> Both options, settled on the call, never on the page</li>
+    <li><b>The Pilot is retired. The Forum survives</b> at $97/month as the second exit</li>
+    <li><b>ICP.</b> Entrepreneurs, £200k–£2M, the band Priestley publishes for the same buyer</li>
+    <li><b>Mechanism as correction</b>, not permission</li>
+  </ul></div>
+</section>
+
+</div></main>
+
+<script>
+var secs=document.querySelectorAll('section[data-s]'),
+    btns=document.querySelectorAll('.sb nav button');
+function go(n){
+  secs.forEach(function(s){s.classList.toggle('on', s.dataset.s===String(n));});
+  btns.forEach(function(b){b.setAttribute('aria-current', b.dataset.s===String(n)?'true':'false');});
+  try{history.replaceState(null,'','#'+n);}catch(e){}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+btns.forEach(function(b){b.addEventListener('click',function(){go(b.dataset.s);});});
+var h=(location.hash||'').replace('#','');
+go(h && !isNaN(h) ? h : 1);
+document.addEventListener('keydown',function(e){
+  if(e.target.tagName==='BUTTON')return;
+  var cur=+document.querySelector('section.on').dataset.s;
+  if(e.key==='ArrowRight'&&cur<9)go(cur+1);
+  if(e.key==='ArrowLeft'&&cur>1)go(cur-1);
+});
+</script>
+</body>
+</html>

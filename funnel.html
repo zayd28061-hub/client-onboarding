@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Michael Pepper Funnel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap">
+<style>
+:root{
+ --bg:#F7F6F3; --panel:#FFFFFF; --line:#E4E0D8; --line2:#CFC9BE;
+ --ink:#14130F; --mid:#4A453E; --mute:#8A837A;
+ --gold:#A8802C; --goldbg:#FBF4E4; --goldline:#E8D9B0;
+ --green:#2E6B4F; --greenbg:#EAF3EE;
+ --blue:#2B5878; --bluebg:#EAF1F6;
+ --sans:'Inter',system-ui,-apple-system,sans-serif;
+ --mono:'DM Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+ font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;
+ background-image:radial-gradient(var(--line) 1px,transparent 1px);background-size:26px 26px}
+.wrap{max-width:1560px;margin:0 auto;padding:34px 22px 70px}
+
+/* header */
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:8px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+h1{font-size:clamp(28px,3.6vw,42px);font-weight:900;letter-spacing:-.04em;margin:8px 0 0}
+.sub{color:var(--mid);font-size:17px;margin:8px 0 0;max-width:60ch}
+.stamp{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 18px;flex:none}
+.stamp b{display:block;font-size:24px;font-weight:900;letter-spacing:-.03em;color:var(--green)}
+.stamp span{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+
+hr.rule{border:0;border-top:1px solid var(--line2);margin:26px 0 28px}
+
+/* lane label */
+.lane{display:flex;align-items:center;gap:12px;margin:34px 0 14px}
+.lane i{font-style:normal;font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+ color:var(--mute);white-space:nowrap}
+.lane em{flex:1;height:1px;background:var(--line2);display:block}
+
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+@media(max-width:1180px){.flow{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:860px){.flow{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.flow{grid-template-columns:1fr}}
+.node{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+ padding:18px 17px;display:flex;flex-direction:column;gap:10px;position:relative}
+.node::after{content:"";position:absolute;right:-13px;top:50%;width:13px;height:1px;
+ background:var(--line2);z-index:0}
+.node:last-child::after{display:none}
+@media(max-width:1180px){.node::after{display:none}}
+.node .hd{display:flex;align-items:center;gap:10px}
+.node .num{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:#fff;background:var(--ink);
+ border-radius:5px;padding:3px 7px}
+.node .ic{margin-left:auto;color:var(--gold)}
+.node .ic svg{width:22px;height:22px;display:block}
+.node h3{margin:0;font-size:17.5px;font-weight:800;letter-spacing:-.025em;line-height:1.2}
+.node .when{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);
+ background:var(--goldbg);border:1px solid var(--goldline);border-radius:99px;padding:3px 9px;align-self:flex-start}
+.node p{margin:0;font-size:14.5px;color:var(--mid);line-height:1.5}
+.node ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:5px}
+.node li{font-size:13.5px;color:var(--mid);padding-left:14px;position:relative;line-height:1.45}
+.node li::before{content:"";position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:var(--line2)}
+.node .out{margin-top:auto;padding-top:11px;border-top:1px dashed var(--line2);
+ font-family:var(--mono);font-size:11px;color:var(--green);line-height:1.5}
+.node .out b{display:block;font-family:var(--sans);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+ color:var(--mute);font-weight:500;margin-bottom:4px}
+.node.hot{border-color:var(--gold);box-shadow:0 0 0 3px var(--goldbg)}
+.node.win{border-color:var(--green);box-shadow:0 0 0 3px var(--greenbg)}
+
+/* inputs strip */
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:12px}
+.inp{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
+.inp b{display:block;font-size:26px;font-weight:900;letter-spacing:-.035em;color:var(--ink);line-height:1}
+.inp span{display:block;font-size:13.5px;color:var(--mid);margin-top:5px}
+.inp i{font-style:normal;display:block;font-family:var(--mono);font-size:10px;letter-spacing:.16em;
+ text-transform:uppercase;color:var(--mute);margin-top:7px}
+.inp.warn b{color:var(--gold)}
+.inp.warn{background:var(--goldbg);border-color:var(--goldline)}
+
+/* two col */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:940px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 21px}
+.card h4{margin:0 0 13px;font-size:15px;font-weight:800;letter-spacing:-.02em;display:flex;align-items:center;gap:9px}
+.card h4 svg{width:18px;height:18px;color:var(--gold);flex:none}
+.card ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+.card li{font-size:14.5px;color:var(--mid);padding-left:17px;position:relative;line-height:1.5}
+.card li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:2px;background:var(--goldline)}
+.card li b{color:var(--ink);font-weight:700}
+
+/* offer box */
+.offer{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.offer .oh{background:var(--ink);color:#fff;padding:17px 22px;display:flex;justify-content:space-between;
+ align-items:center;gap:16px;flex-wrap:wrap}
+.offer .oh b{font-size:19px;font-weight:800;letter-spacing:-.025em}
+.offer .oh span{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.65}
+.offer .ob{padding:20px 22px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+@media(max-width:860px){.offer .ob{grid-template-columns:1fr}}
+.offer .ob h5{margin:0 0 9px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);font-weight:500}
+.offer .ob ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.offer .ob li{font-size:14px;color:var(--mid);display:flex;justify-content:space-between;gap:10px}
+.offer .ob li i{font-style:normal;font-family:var(--mono);font-size:12px;color:var(--mute);flex:none}
+.money{display:flex;gap:26px;flex-wrap:wrap;padding:16px 22px;border-top:1px solid var(--line);background:#FCFBF9}
+.money div span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.money div b{display:block;font-size:23px;font-weight:900;letter-spacing:-.03em;margin-top:3px}
+.money .p b{color:var(--green)}
+
+/* funnel math */
+.math{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:6px 22px 18px}
+.math .tw{overflow-x:auto}
+.math table{min-width:560px}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+ color:var(--mute);font-weight:500;padding:14px 10px 9px 0;border-bottom:1px solid var(--line)}
+td{padding:11px 10px 11px 0;border-bottom:1px solid var(--line);color:var(--mid)}
+td:first-child{color:var(--ink);font-weight:600}
+td.n{font-family:var(--mono);font-size:13.5px;color:var(--ink);text-align:right;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+tr.tot td{font-weight:800;color:var(--ink);border-top:2px solid var(--ink);padding-top:14px}
+tr.tot td.n{color:var(--green);font-size:16px}
+
+/* open items */
+.open{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.oi{background:#FFF9F0;border:1px solid var(--goldline);border-radius:12px;padding:15px 16px}
+.oi b{display:block;font-size:14.5px;font-weight:700;margin-bottom:4px}
+.oi span{font-size:13.5px;color:var(--mid);line-height:1.45}
+
+.foot{margin-top:40px;padding-top:18px;border-top:1px solid var(--line2);
+ font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--mute);text-align:center}
+@media print{body{background:#fff}.flow{overflow:visible;flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="top">
+  <div>
+    <div class="eyebrow">Michael Pepper · Funnel Plan</div>
+    <h1>Story to signed, in ten days.</h1>
+    <p class="sub">Zero ad spend. Three free lives create the proof, the proof fills the webinar, the webinar fills three seats.</p>
+  </div>
+  <div class="stamp"><b>$21k–28k</b><span>Target, one warm webinar</span></div>
+</div>
+
+<hr class="rule">
+
+<div class="lane"><i>What we're starting with</i><em></em></div>
+<div class="inputs">
+  <div class="inp"><b>900</b><span>Email subscribers</span><i>Last send date unknown</i></div>
+  <div class="inp"><b>500</b><span>Telegram, Lions Circle</span><i>Dormant, months quiet</i></div>
+  <div class="inp"><b>~300</b><span>Instagram story views</span><i>16.2k followers, 2% reach</i></div>
+  <div class="inp warn"><b>$0</b><span>Ad budget</span><i>Organic only</i></div>
+  <div class="inp warn"><b>0</b><span>Case studies today</span><i>Three by Thursday</i></div>
+</div>
+
+<div class="lane"><i>The sequence</i><em></em></div>
+<div class="flow">
+
+  <div class="node hot">
+    <div class="hd"><span class="num">01</span>
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 6h4"/></svg></span></div>
+    <span class="when">Today</span>
+    <h3>The Story</h3>
+    <p>One slide. Three founders, one to one, live tomorrow.</p>
+    <ul><li>Filter line does the work: “your business makes money”</li><li>Follow-up story 4 hours later</li></ul>
+    <div class="out"><b>Out</b>Traffic to the application page</div>
+  </div>
+
+  <div class="node">
+    <div class="hd"><span class="num">02</span>
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 3h14v18H5z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></span></div>
+    <span class="when">Today</span>
+    <h3>Apply</h3>
+    <p>Twelve questions. Qualifies on revenue, captures consent.</p>
+    <ul><li>Q7–Q10 give us the buyer’s own words</li><li>Consent to record and post is a hard gate</li></ul>
+    <div class="out"><b>Out</b>Applications + voice-of-customer language</div>
+  </div>
+
+  <div class="node hot">
+    <div class="hd"><span class="num">03</span>
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.2"/></svg></span></div>
+    <span class="when">Days 2–3</span>
+    <h3>Three Lives</h3>
+    <p>45–60 min each. Instagram and TikTok. Unedited.</p>
+    <ul><li>Permission Intensive + Value Inventory, compressed</li><li>No pitch. Not once</li><li>Last 5 minutes is the testimonial</li></ul>
+    <div class="out"><b>Out</b>3 recordings · 3 testimonials · the proof</div>
+  </div>
+
+  <div class="node">
+    <div class="hd"><span class="num">04</span>
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 6h18v12H3z"/><path d="M10 9.5l5 2.5-5 2.5z"/></svg></span></div>
+    <span class="when">Days 3–4</span>
+    <h3>Publish</h3>
+    <p>YouTube, full sessions. Clips everywhere else.</p>
+    <ul><li>Four clips per session</li><li>Thumbnail + title carry the reach</li></ul>
+    <div class="out"><b>Out</b>Nurture library that keeps working</div>
+  </div>
+
+  <div class="node">
+    <div class="hd"><span class="num">05</span>
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 5h18v11H3z"/><path d="M8 20h8M12 16v4"/></svg></span></div>
+    <span class="when">Days 4–8</span>
+    <h3>Register</h3>
+    <p>“For those who didn’t get a seat, I have something else.”</p>
+    <ul><li>Story sequence to the registration page</li><li>Clip CTAs all point at the masterclass</li><li>Email 900 + Telegram 500</li></ul>
+    <div class="out"><b>Out</b>Webinar registrations</div>
+  </div>
+
+  <div class="node hot">
+    <div class="hd"><span class="num">06</span>
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h16v13H4z"/><path d="M8 21h8"/><circle cx="12" cy="10.5" r="2.6"/></svg></span></div>
+    <span class="when">Days 9–10</span>
+    <h3>The Masterclass</h3>
+    <p>60–90 minutes, affluent framework from the SOP.</p>
+    <ul><li>Proof: 3 case studies + the 2k→40k story</li><li>Objections killed before the offer</li><li>Ends in an application, not a checkout</li></ul>
+    <div class="out"><b>Out</b>Applications</div>
+  </div>
+
+  <div class="node win">
+    <div class="hd"><span class="num">07</span>
+      <span class="ic" style="color:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12.5l5 5L20 6.5"/></svg></span></div>
+    <span class="when">Days 10+</span>
+    <h3>Fit Call → Signed</h3>
+    <p>Thirty minutes. Assessing fit, not persuading.</p>
+    <ul><li>Three seats. Genuinely three</li><li>Pay in full or split, settled live</li></ul>
+    <div class="out" style="color:var(--green)"><b>Out</b>3–4 clients × $7,000</div>
+  </div>
+
+</div>
+
+<div class="lane"><i>The offer they’re applying for</i><em></em></div>
+<div class="offer">
+  <div class="oh"><b>The 90-Day Named Founder Intensive</b><span>3 per intake · £200k–£2M founders</span></div>
+  <div class="ob">
+    <div><h5>Michael delivers</h5><ul>
+      <li>Permission Intensive <i>$4,000</i></li>
+      <li>Value Inventory <i>$2,500</i></li>
+      <li>Voice Sessions <i>$3,000</i></li>
+      <li>Message &amp; Pillars <i>$2,000</i></li>
+    </ul></div>
+    <div><h5>The team delivers</h5><ul>
+      <li>Content Operating System <i>$2,500</i></li>
+      <li>Capture System <i>$1,500</i></li>
+      <li>Production, 90 days <i>$6,000</i></li>
+      <li>Conversion Path <i>$2,000</i></li>
+    </ul></div>
+    <div><h5>Access &amp; bonuses</h5><ul>
+      <li>Founder’s Table seat <i>$2,500</i></li>
+      <li>The Forum, 12 months <i>$1,200</i></li>
+      <li>First Fortnight <i>$1,000</i></li>
+      <li>Standards + 6-month review <i>$2,000</i></li>
+    </ul></div>
+  </div>
+  <div class="money">
+    <div><span>Total value</span><b>$30,200</b></div>
+    <div class="p"><span>Investment</span><b>$7,000</b></div>
+    <div><span>Ratio</span><b>4.3×</b></div>
+    <div><span>Guarantee</span><b>Existence, not results</b></div>
+  </div>
+</div>
+
+<div class="lane"><i>The maths, organic only</i><em></em></div>
+<div class="math"><div class="tw">
+<table>
+<thead><tr><th>Stage</th><th style="text-align:right">Conservative</th><th style="text-align:right">Expected</th><th style="text-align:right">Good</th><th>Rate used</th></tr></thead>
+<tbody>
+<tr><td>Reachable audience</td><td class="n">1,400</td><td class="n">1,400</td><td class="n">1,400</td><td>900 email + 500 Telegram</td></tr>
+<tr><td>Registrations</td><td class="n">35</td><td class="n">60</td><td class="n">95</td><td>2.5% / 4% / 6% of reachable, plus stories</td></tr>
+<tr><td>Show live</td><td class="n">11</td><td class="n">21</td><td class="n">38</td><td>30% / 35% / 40%</td></tr>
+<tr><td>Stay to the offer</td><td class="n">8</td><td class="n">15</td><td class="n">27</td><td>70% retention</td></tr>
+<tr><td>Apply</td><td class="n">2</td><td class="n">4</td><td class="n">7</td><td>25% of those at offer</td></tr>
+<tr><td>Show to the call</td><td class="n">2</td><td class="n">3</td><td class="n">5</td><td>75%</td></tr>
+<tr><td>Close</td><td class="n">1</td><td class="n">3</td><td class="n">4</td><td>40% · warm, with proof</td></tr>
+<tr class="tot"><td>Collected at $7,000</td><td class="n">$7,000</td><td class="n">$21,000</td><td class="n">$28,000</td><td>One webinar</td></tr>
+</tbody>
+</table>
+</div></div>
+
+<div class="lane"><i>What has to be true</i><em></em></div>
+<div class="cols">
+  <div class="card">
+    <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 4v5c0 5-3.4 8.2-8 9-4.6-.8-8-4-8-9V7z"/></svg>Protect these</h4>
+    <ul>
+      <li><b>The email list.</b> Unknown last-send date. Mail 90-day openers only, 100 a day, ramping. One blast to a cold 900 burns the sending domain and there is no budget to recover it.</li>
+      <li><b>Who gets the three seats.</b> 68% of his audience have nothing to sell. Wrong participants means the right proof for the wrong buyer.</li>
+      <li><b>No pitch in the lives.</b> The absence of a pitch is what makes them credible.</li>
+      <li><b>Three seats means three.</b> False scarcity is detected instantly by this buyer.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/></svg>Highest-yield hours</h4>
+    <ul>
+      <li><b>Manual DMs.</b> Registrations only reach the expected column if the warm list is worked by hand. Budget six hours. Easiest thing to skip, biggest cost if skipped.</li>
+      <li><b>The last five minutes of each live.</b> That is the clip and the testimonial.</li>
+      <li><b>Clipping within 24 hours.</b> Momentum decays fast.</li>
+      <li><b>The registration page headline.</b> Outcome first, belief underneath.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="lane"><i>Still open</i><em></em></div>
+<div class="open">
+  <div class="oi"><b>Cohort date</b><span>The only honest urgency available. Needs Michael’s October calendar.</span></div>
+  <div class="oi"><b>Masterclass title</b><span>Three options drafted. Blocks the registration page.</span></div>
+  <div class="oi"><b>Story version</b><span>Three drafted. Blocks today.</span></div>
+  <div class="oi"><b>Email last-send date</b><span>Decides whether this is a launch or a two-week warm-up.</span></div>
+  <div class="oi"><b>Team capacity</b><span>$6,000 of the stack. The one component Michael cannot personally guarantee.</span></div>
+  <div class="oi"><b>Founder’s Table logistics</b><span>It is in Lagos. A UK buyer needs to know if that means travel.</span></div>
+</div>
+
+<div class="foot">MICHAEL PEPPER × ZAYD OPERATES · FUNNEL PLAN · SEPTEMBER 2026</div>
+
+</div>
+</body>
+</html>
