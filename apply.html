@@ -160,7 +160,15 @@ footer p{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(-
   <h2>Apply</h2>
   <p style="margin-bottom:28px">I read every one myself, and I'll message everyone who applies, chosen or not.</p>
 
-  <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+  <div id="done" hidden>
+    <h2 style="margin-bottom:14px">Application in.</h2>
+    <p class="ink" style="font-size:18px">I read every one of these myself. You'll hear from me either way, tonight or first thing tomorrow.</p>
+    <p style="margin-bottom:0">If you're one of the three, I'll send you a time.</p>
+  </div>
+
+  <form id="ap" action="https://formspree.io/f/maenpavo" method="POST">
+    <input type="hidden" name="_subject" value="New application — three founders live">
+    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
 
     <div class="fg">
       <label for="n">Your name</label>
@@ -213,6 +221,7 @@ footer p{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(-
       <label><input type="checkbox" name="consent" value="yes" required> I'm happy with that</label>
     </div>
 
+    <p id="err" role="alert" hidden style="color:#8C2F23;font-size:15px;margin:0 0 14px">Something went wrong. Try again, or email me directly.</p>
     <button type="submit">Send my application</button>
     <p class="fine">Closes tonight. I'll message everyone either way.</p>
   </form>
@@ -221,5 +230,27 @@ footer p{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(-
 <footer><p>Michael Pepper</p></footer>
 
 </div>
+<script>
+(function(){
+  var f=document.getElementById('ap'), done=document.getElementById('done'),
+      err=document.getElementById('err'), btn=f.querySelector('button');
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    err.hidden=true; btn.disabled=true; btn.textContent='Sending\u2026';
+    fetch(f.action,{method:'POST',body:new FormData(f),headers:{'Accept':'application/json'}})
+      .then(function(r){
+        if(r.ok){
+          f.hidden=true; done.hidden=false;
+          done.scrollIntoView({behavior:'smooth',block:'center'});
+        } else {
+          return r.json().then(function(d){ throw new Error((d.errors||[]).map(function(x){return x.message}).join(', ')||'failed'); });
+        }
+      })
+      .catch(function(){
+        err.hidden=false; btn.disabled=false; btn.textContent='Send my application';
+      });
+  });
+})();
+</script>
 </body>
 </html>
