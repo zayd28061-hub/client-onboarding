@@ -216,6 +216,11 @@ footer p{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(-
   <form id="ap" action="https://formspree.io/f/maenpavo" method="POST">
     <input type="hidden" name="_subject" value="New application — three founders live">
     <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+    <input type="hidden" name="source"    id="t_src">
+    <input type="hidden" name="referrer"  id="t_ref">
+    <input type="hidden" name="seconds_on_page" id="t_sec">
+    <input type="hidden" name="device"    id="t_dev">
+    <input type="hidden" name="reached_form" id="t_reach">
 
     <div class="fg">
       <label for="n">Your name</label>
@@ -281,8 +286,33 @@ footer p{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(-
 (function(){
   var f=document.getElementById('ap'), done=document.getElementById('done'),
       err=document.getElementById('err'), btn=f.querySelector('button');
+
+  // ---- funnel instrumentation ----
+  var t0=Date.now(), reached=false;
+  var qs=new URLSearchParams(location.search);
+  var src=qs.get('s')||qs.get('utm_source')||'';
+  if(!src){
+    var r=document.referrer||'';
+    if(/instagram/i.test(r)) src='instagram';
+    else if(/t\.co|twitter|x\.com/i.test(r)) src='twitter';
+    else if(/tiktok/i.test(r)) src='tiktok';
+    else if(/youtube/i.test(r)) src='youtube';
+    else if(/t\.me|telegram/i.test(r)) src='telegram';
+    else if(!r) src='direct';
+    else src='other';
+  }
+  document.getElementById('t_src').value=src;
+  document.getElementById('t_ref').value=(document.referrer||'none').slice(0,200);
+  document.getElementById('t_dev').value=(innerWidth<700?'mobile':innerWidth<1100?'tablet':'desktop')+' '+innerWidth+'px';
+
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ reached=true; io.disconnect(); } });
+  },{threshold:.3});
+  var apply=document.getElementById('apply'); if(apply) io.observe(apply);
   f.addEventListener('submit', function(e){
     e.preventDefault();
+    document.getElementById('t_sec').value=Math.round((Date.now()-t0)/1000);
+    document.getElementById('t_reach').value=reached?'yes':'no';
     err.hidden=true; btn.disabled=true; btn.textContent='Sending\u2026';
     fetch(f.action,{method:'POST',body:new FormData(f),headers:{'Accept':'application/json'}})
       .then(function(r){
@@ -299,5 +329,10 @@ footer p{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(-
   });
 })();
 </script>
+<!-- Cloudflare Web Analytics · free, cookieless, no consent banner needed.
+     Paste the token from dash.cloudflare.com > Web Analytics, then uncomment.
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon='{"token": "YOUR_TOKEN"}'></script>
+-->
 </body>
 </html>
